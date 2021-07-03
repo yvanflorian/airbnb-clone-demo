@@ -28,6 +28,11 @@ export const fetchOneListing = async(id: String) => {
       console.error(error)
    }
 }
+/**
+ * Check this
+ * https://docs.mongodb.com/manual/reference/operator/aggregation/group/#std-label-null-example
+ * @returns List of Available Countries
+ */
 export const fetchDistinctCountries = async() =>{
    console.log("GQL Fetch Distinct Countries")
    let countries: ICountries[] = []
