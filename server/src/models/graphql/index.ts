@@ -4,15 +4,19 @@ import { GraphQLScalarType, Kind } from "graphql"
 import { merge } from "lodash"
 //
 import { ResolverMap } from '../../types/gqlResolver'
-import { IListing, Listing } from "./../mongoose/Listing"
-import { fetchDistinctCountries, fetchOneListing } from './Listing'
+import { fetchCountryListing, fetchDistinctCountries, fetchOneListing } from './Listing'
 
 export const typeDefs = gql`
    scalar Date
+
    type Location{
       type: String,
       coordinates: [Int],
       is_location_exact: Boolean
+   }
+   type Country{
+      country: String,
+      country_code: String
    }
    type ListingAddress{
       street: String,
@@ -54,7 +58,8 @@ export const typeDefs = gql`
    type Query{
       hello: String,
       oneListing(id: String): Listing,
-      availableCountries: [String]
+      availableCountries: [Country]
+      countryListings(code: String): [Listing]
    }
 `
 
@@ -83,7 +88,8 @@ const someResolvers: ResolverMap = {
    Query:{
       hello : () => "hello World",
       oneListing: (_,args) => fetchOneListing(args.id),
-      availableCountries : () => fetchDistinctCountries()
+      availableCountries : () => fetchDistinctCountries(),
+      countryListings:(_,args) => fetchCountryListing(args.code)
    }
 }
 
