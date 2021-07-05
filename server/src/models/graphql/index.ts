@@ -11,7 +11,7 @@ export const typeDefs = gql`
 
    type Location{
       type: String,
-      coordinates: [Int],
+      coordinates: [Float],
       is_location_exact: Boolean
    }
    type Country{

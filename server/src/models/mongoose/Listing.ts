@@ -38,10 +38,23 @@ export interface IListing {
          type: String,
          coordinates: [Number],
          is_location_exact: Boolean
-      }
+      },
    }
 }
 
+const pointSchema = new Schema({
+   type: {
+     type: String,
+     enum: ['Point'],
+     required: true
+   },
+   coordinates: {
+     type: [Number],
+     required: true
+   },
+   is_location_exact: Boolean
+ })
+ 
 const listingSchema = new Schema<IListing>({
       _id: String,
       listing_url: String,
@@ -76,11 +89,7 @@ const listingSchema = new Schema<IListing>({
          market: String,
          country: String,
          country_code: String,
-         location:{
-            type: String,
-            coordinates: [Number],
-            is_location_exact: Boolean
-         }
+         location:pointSchema
       }
    },{
       collection: "listingsAndReviews"

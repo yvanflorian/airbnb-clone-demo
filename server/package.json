@@ -4,7 +4,8 @@
   "description": "AirBNB Clone",
   "main": "index.ts",
   "scripts": {
-    "start": "ts-node-dev --respawn src/app.ts"
+    "start": "ts-node-dev --respawn src/app.ts",
+    "query": "ts-node-dev --respawn mongoQuery.ts"
   },
   "author": "yvan.florian",
   "license": "ISC",

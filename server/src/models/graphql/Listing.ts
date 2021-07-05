@@ -34,7 +34,7 @@ export const fetchOneListing = async(id: String) => {
  * @returns List of Available Countries
  */
 export const fetchDistinctCountries = async() =>{
-   console.log("GQL Fetch Distinct Countries")
+   console.log("[Log] GQL Fetch Distinct Countries")
    let countries: ICountries[] = []
    try {
       const distinctCountry: IAggregation[] = await Listing.aggregate([{
@@ -57,7 +57,7 @@ export const fetchDistinctCountries = async() =>{
 }
 
 export const fetchCountryListing = async(code: String)=>{
-   console.log("GQL Fetch one Country Related Listings",code)
+   console.log(`[Log] GQL Fetch one Country Related Listings: "${code}"`)
    try {
       const countries: IListing[] = await Listing.find({"address.country_code":code}).limit(20)
       return countries
