@@ -4,7 +4,6 @@ import { fade, makeStyles, Theme, createStyles} from "@material-ui/core/styles"
 import AppBar from "@material-ui/core/AppBar"
 import Typography from "@material-ui/core/Typography"
 import ToolBar from "@material-ui/core/Toolbar"
-import Button from "@material-ui/core/Button"
 import IconButton from "@material-ui/core/IconButton"
 import InputBase from "@material-ui/core/InputBase"
 //mui-icons
@@ -24,22 +23,21 @@ const useStyles = makeStyles((theme: Theme)=>createStyles({
    toolBarContents:{
       display:"flex",
       justifyContent: "space-around",
-      // marginLeft: theme.spacing(10)
    },
    logoName:{
       display: "flex",
       flexDirection: "row",
       alignItems: "center",
-      // padding: theme.spacing(2)
-      // marginRight: theme.spacing(2)
    },
    logoStyle:{
       width:"50px",
       height: "50px"
    },
+   logoText:{
+      fontWeight: 700
+   },
    rightItems:{
-      display: "flex",
-      alignItems: ""
+      padding: theme.spacing(2)
    },
    search:{
       position: "relative",
@@ -78,6 +76,9 @@ const useStyles = makeStyles((theme: Theme)=>createStyles({
        width: '20ch',
      },
    },
+   becomeHostText:{
+      fontSize: theme.typography.caption.fontSize
+   }
 }))
 
 export default function Appbar(){
@@ -96,6 +97,7 @@ export default function Appbar(){
                      variant="h6"
                      noWrap
                      color="primary"
+                     className={classes.logoText}
                   >
                      airbnb
                   </Typography>
@@ -111,12 +113,14 @@ export default function Appbar(){
                      }}
                   />
                </div>
-               <div className={classes.rightItems}>
-                  <Button size="small"> Become a Host</Button>
-                  <IconButton aria-label="Select Language" >
+               <div>
+                  <IconButton size="small" className={classes.rightItems}>
+                     <Typography variant="caption"> Become a Host</Typography>
+                  </IconButton>
+                  <IconButton aria-label="Select Language" size="small" className={classes.rightItems}>
                      <LanguageIcon/>
                   </IconButton>
-                  <IconButton>
+                  <IconButton size="small" className={classes.rightItems}>
                      <MenuIcon/>
                      <AccountCircleIcon />
                   </IconButton>

@@ -5,6 +5,7 @@ import { ApolloClient, ApolloLink, ApolloProvider, createHttpLink,InMemoryCache 
 import './App.css'
 import theme from "./theme"
 import Home from "./pages/Home"
+import CountryListings from "./pages/countryListings"
 
 const myLink: ApolloLink = createHttpLink({
   uri: "http://localhost:4000/graphql",
@@ -24,6 +25,7 @@ function App() {
           <ThemeProvider theme={theme}>
             <Switch>
               <Route exact path="/" component={Home}/>
+              <Route path="/:countryCode" component={CountryListings}/>
             </Switch>
           </ThemeProvider>
         </ApolloProvider>
