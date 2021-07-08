@@ -6,7 +6,10 @@ import Grid from "@material-ui/core/Grid"
 import Typography from "@material-ui/core/Typography"
 import Paper from "@material-ui/core/Paper"
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles"
-
+import IconButton from "@material-ui/core/IconButton"
+//mui-icons
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder'
+import StarIcon from '@material-ui/icons/Star'
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
    gridItem: {
@@ -32,21 +35,42 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
       backgroundColor: "#c5c5c5"
    },
    listingDescription: {
-      padding: theme.spacing(3),
+      paddingLeft: theme.spacing(3),
+      width: "100%",
       display: "flex",
-      flexDirection: "column"
+      flexDirection: "column",
+      justifyContent: "space-between"
    },
    amenities: {
       display: "flex",
       listStyle: "none"
    },
+   firstTextLineContainer: {
+      display: "flex",
+      alignItems: "flex-start",
+      justifyContent: "space-between"
+   },
+   firstTextLine: {},
+   firstTextLineIcon: {},
    secondTextLine: {
       fontWeight: 600
+   },
+   thirdLineDivider: {
+      borderTop: "1px solid #DDDDDD !important",
+      width: "32px",
+      padding: theme.spacing(1)
+   },
+   reviews: {
+      display: "flex"
+   },
+   reviewStar: {
+      padding: "0px"
    },
    reviewsPriceContainer: {
       display: "flex",
       alignItems: "flex-end",
-      justifyContent: "space-between"
+      justifyContent: "space-between",
+      // paddingTop: theme.spacing(3)
    }
 }))
 
@@ -74,7 +98,7 @@ export default function ListingContents() {
          >
             {loading ? isLoading : data?.countryListings.map((oneListing: IListing) => (
                <Paper className={classes.paperGrid} elevation={2} key={oneListing._id} >
-                  <Grid item xs={6} className={classes.gridItem} >
+                  <Grid item xs={12} className={classes.gridItem} >
                      <div className={classes.imageListingContainer}>
                         <img
                            src={`${oneListing.images.picture_url}`}
@@ -83,26 +107,49 @@ export default function ListingContents() {
                         />
                      </div>
                      <div className={classes.listingDescription}>
-                        <Typography
-                           variant="caption"
-                        >
-                           {`Entire ${oneListing.property_type} in ${oneListing.address.suburb}`}
-                        </Typography>
-                        <Typography className={classes.secondTextLine} variant="subtitle2">{oneListing.name}</Typography>
-                        <Typography>---</Typography>
-                        <Typography variant="caption">{`${oneListing.guests_included} guests.${oneListing.bedrooms}bedroom.${oneListing.beds}bed`}</Typography>
-                        <div className={classes.amenities}>
-                           {oneListing.amenities.slice(0, 4).map((amenity, index) => (
-                              <li key={index}>
-                                 <Typography key={index} variant="caption">{`${amenity}.`}</Typography>
-                              </li>
-                           ))}
+                        <div>
+                           <div className={classes.firstTextLineContainer}>
+                              <div className={classes.firstTextLine}>
+                                 <Typography
+                                    variant="caption"
+                                 >
+                                    {`Entire ${oneListing.property_type} in ${oneListing.address.suburb}`}
+                                 </Typography>
+                                 <Typography className={classes.secondTextLine} variant="subtitle2">{oneListing.name}</Typography>
+                              </div>
+                              <div className={classes.firstTextLineIcon}>
+                                 <IconButton>
+                                    <FavoriteBorderIcon />
+                                 </IconButton>
+                              </div>
+                           </div>
+                           <div className={classes.thirdLineDivider} />
+                           <Typography variant="caption">{`${oneListing.guests_included} guests.${oneListing.bedrooms}bedroom.${oneListing.beds}bed`}</Typography>
+                           <div className={classes.amenities}>
+                              {oneListing.amenities.slice(0, 4).map((amenity, index) => (
+                                 <li key={index}>
+                                    <Typography key={index} variant="caption">{`${amenity}.`}</Typography>
+                                 </li>
+                              ))}
+                           </div>
                         </div>
                         <div className={classes.reviewsPriceContainer}>
-                           <Typography>{`$${oneListing.price}/night`}</Typography>
-                           {oneListing.review_scores.review_scores_rating
-                              ? <Typography>{(Number(oneListing.review_scores.review_scores_rating) * 0.05)} ({oneListing.number_of_reviews} reviews) </Typography>
-                              : null}
+                           <div>
+
+                              {oneListing.review_scores.review_scores_rating
+                                 ?
+                                 <div className={classes.reviews}>
+                                    <IconButton color="primary" className={classes.reviewStar} size="small">
+                                       <StarIcon />
+                                    </IconButton>
+                                    <Typography>{(Number(oneListing.review_scores.review_scores_rating) * 0.05)} ({oneListing.number_of_reviews} reviews) </Typography>
+                                 </div>
+                                 : null
+                              }
+                           </div>
+                           <div>
+                              <Typography>{`$${oneListing.price}/night`}</Typography>
+                           </div>
                         </div>
                      </div>
                   </Grid>
