@@ -1,6 +1,7 @@
-import { createMuiTheme, responsiveFontSizes } from "@material-ui/core/styles"
+import { responsiveFontSizes } from "@material-ui/core/styles"
+import createTheme, { Theme } from "@material-ui/core/styles/createTheme"
 
-declare module "@material-ui/core/styles/createMuiTheme" {
+declare module "@material-ui/core/styles/createTheme" {
   interface Theme {
     buttons: {
       main: React.CSSProperties["color"]
@@ -22,7 +23,7 @@ declare module "@material-ui/core/styles/createPalette" {
   }
 }
 
-const baretheme = createMuiTheme({
+const baretheme: Theme = createTheme({
   buttons: {
     main: "#5babfa",
   },
@@ -56,7 +57,7 @@ const baretheme = createMuiTheme({
       //   ' Helvetica',
       //   ' Arial'
     ].join(","),
-    fontSize: 15,
+    fontSize: 16,
   },
 })
 

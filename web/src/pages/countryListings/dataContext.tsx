@@ -1,4 +1,4 @@
-import React, { createContext } from "react"
+import React, { createContext, useState } from "react"
 import { gql, useQuery, ApolloError } from "@apollo/client"
 import { useParams } from "react-router-dom"
 import { IListing } from "./../../types/Listing"
@@ -38,6 +38,9 @@ const COUNTRY_LISTINGS_Q = gql`
          address{
             country
             suburb
+            location{
+               coordinates
+            }
          }
          number_of_reviews
          amenities
@@ -52,11 +55,15 @@ interface IDefaultValue {
    loading: boolean,
    error: ApolloError | undefined
    data: ICountryListing | null | undefined
+   fullMap: boolean
+   setFullMap: React.Dispatch<React.SetStateAction<boolean>>
 }
 const defaultValue: IDefaultValue = {
    loading: true,
    error: undefined,
-   data: null
+   data: null,
+   fullMap: false,
+   setFullMap: () => false
 }
 
 export const CountryListingContext = createContext(defaultValue)
@@ -70,9 +77,10 @@ export const CountryListingProvider: React.FC<React.ReactNode> = ({ children }) 
       }
    }
    )
+   const [fullMap, setFullMap] = useState(false)
 
    return (
-      <CountryListingContext.Provider value={{ loading, error, data }}>
+      <CountryListingContext.Provider value={{ loading, error, data, fullMap, setFullMap }}>
          {children}
       </CountryListingContext.Provider>
    )

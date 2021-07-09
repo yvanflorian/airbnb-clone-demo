@@ -2,10 +2,11 @@ import { useContext } from "react"
 import { IListing } from "./../../../types/Listing"
 import { CountryListingContext } from "./../dataContext"
 //mui-core
+import useMediaQuery from '@material-ui/core/useMediaQuery'
 import Grid from "@material-ui/core/Grid"
 import Typography from "@material-ui/core/Typography"
 // import Paper from "@material-ui/core/Paper"
-import { makeStyles, Theme, createStyles } from "@material-ui/core/styles"
+import { makeStyles, Theme, createStyles, useTheme } from "@material-ui/core/styles"
 import IconButton from "@material-ui/core/IconButton"
 //mui-icons
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder'
@@ -90,14 +91,28 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
       display: "flex",
       alignItems: "flex-end",
       justifyContent: "space-between",
+   },
+   reviewPriceMobile: {
+      [theme.breakpoints.down("sm")]: {
+
+      }
+   },
+   gridContainer: {
+      transition: theme.transitions.create("margin", {
+         easing: theme.transitions.easing.easeOut,
+         duration: theme.transitions.duration.enteringScreen
+      }),
+
    }
 }))
 
 export default function ListingContents() {
    const classes = useStyles()
-   const { error, data, loading } = useContext(CountryListingContext)
+   const { error, data, loading, fullMap } = useContext(CountryListingContext)
+   const theme = useTheme()
+   const smallScreen: Boolean = useMediaQuery(theme.breakpoints.down("sm"))
 
-   console.log("Listings Requested", data)
+   console.log("Listings Requested", data, fullMap)
 
    const isLoading =
       <div>
@@ -115,10 +130,10 @@ export default function ListingContents() {
             // spacing={3}
             direction="column"
             alignItems="stretch"
+            className={classes.gridContainer}
          >
             {loading ? isLoading : data?.countryListings.map((oneListing: IListing) => (
-               // <Paper className={classes.paperGrid} elevation={2} key={oneListing._id} >
-               <Grid item xs={12} className={classes.gridItem}>
+               <Grid item xs={12} className={classes.gridItem} key={oneListing._id} >
 
                   <div className={classes.imageListingContainer}>
                      <img
@@ -154,29 +169,35 @@ export default function ListingContents() {
                            ))}
                         </div>
                      </div>
-                     <div className={classes.reviewsPriceContainer}>
-                        <div>
-                           {oneListing.review_scores.review_scores_rating
-                              ?
-                              <div className={classes.reviews}>
-                                 <IconButton color="primary" className={classes.reviewStar} size="small">
-                                    <StarIcon />
-                                 </IconButton>
-                                 <Typography variant="subtitle2" className={classes.reviewAmount}>{Math.round((Number(oneListing.review_scores.review_scores_rating) * 0.05) * 100) / 100} </Typography>
-                                 <Typography variant="caption">({oneListing.number_of_reviews} reviews)</Typography>
-                              </div>
-                              : null
-                           }
-                        </div>
+                     {smallScreen ?
                         <div className={classes.reviewAmountText}>
-                           {/* <Typography variant="body2">$</Typography> */}
                            <Typography variant="subtitle2" className={classes.reviewAmount}>{`$${oneListing.price}`}</Typography>
                            <Typography variant="subtitle2"> / night</Typography>
                         </div>
-                     </div>
+                        :
+                        <div className={classes.reviewsPriceContainer}>
+                           <div>
+                              {oneListing.review_scores.review_scores_rating
+                                 ?
+                                 <div className={classes.reviews}>
+                                    <IconButton color="primary" className={classes.reviewStar} size="small">
+                                       <StarIcon />
+                                    </IconButton>
+                                    <Typography variant="subtitle2" className={classes.reviewAmount}>{Math.round((Number(oneListing.review_scores.review_scores_rating) * 0.05) * 100) / 100} </Typography>
+                                    <Typography variant="caption">({oneListing.number_of_reviews} reviews)</Typography>
+                                 </div>
+                                 : null
+                              }
+                           </div>
+                           <div className={classes.reviewAmountText}>
+                              {/* <Typography variant="body2">$</Typography> */}
+                              <Typography variant="subtitle2" className={classes.reviewAmount}>{`$${oneListing.price}`}</Typography>
+                              <Typography variant="subtitle2"> / night</Typography>
+                           </div>
+                        </div>
+                     }
                   </div>
                </Grid>
-               // </Paper>
             ))}
          </Grid>
       </div >

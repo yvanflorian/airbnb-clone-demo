@@ -64,7 +64,7 @@ export interface IListing {
     country_code: string
     location: {
       type: string
-      coordinates: [Number]
+      coordinates: [number, number]
       is_location_exact: Boolean
     }
   }
