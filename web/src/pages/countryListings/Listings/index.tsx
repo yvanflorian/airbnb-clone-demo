@@ -10,14 +10,14 @@ export default function Listings() {
          >
             <Grid
                item
-               md={6}
+               md={7}
                xs={12}
             >
                <ListingContents />
             </Grid>
             <Grid
                item
-               md={6}
+               md={5}
                xs={6}
             >
 
