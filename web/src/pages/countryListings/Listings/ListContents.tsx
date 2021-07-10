@@ -8,6 +8,7 @@ import Typography from "@material-ui/core/Typography"
 // import Paper from "@material-ui/core/Paper"
 import { makeStyles, Theme, createStyles, useTheme } from "@material-ui/core/styles"
 import IconButton from "@material-ui/core/IconButton"
+import Button from "@material-ui/core/Button"
 //mui-icons
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder'
 import StarIcon from '@material-ui/icons/Star'
@@ -27,6 +28,17 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
    },
    paperGrid: {
       padding: theme.spacing(2),
+   },
+   filterButtonsRegion: {
+      display: "flex",
+      paddingTop: theme.spacing(1)
+   },
+   filterButtonsContainer: {
+      paddingRight: theme.spacing(2)
+   },
+   filterButton: {
+      borderRadius: "30px !important",
+      textTransform: "none"
    },
    imageListingContainer: {
       borderRadius: "5%",
@@ -117,9 +129,17 @@ export default function ListingContents() {
    const isLoading =
       <div>
          <Typography
-            variant="h4"
+            variant="body1"
          >
-            Loading
+            Loading...
+         </Typography>
+      </div>
+   const isError =
+      <div>
+         <Typography
+            variant="body1"
+         >
+            Oups! Error...
          </Typography>
       </div>
 
@@ -132,6 +152,28 @@ export default function ListingContents() {
             alignItems="stretch"
             className={classes.gridContainer}
          >
+            {/* BeforeListItems */}
+            <Grid item xs={12} className={classes.gridItem}>
+               <div>
+                  <Typography variant="caption">20+ stays</Typography>
+                  <Typography variant="h5"> Stays in {data?.countryListings[0].address.country}</Typography>
+                  <div className={classes.filterButtonsRegion}>
+                     <div className={classes.filterButtonsContainer}>
+                        <Button size="small" variant="outlined" className={classes.filterButton}>Prices</Button>
+                     </div>
+                     <div className={classes.filterButtonsContainer}>
+                        <Button size="small" variant="outlined" className={classes.filterButton}>Type of Place</Button>
+                     </div>
+                     <div className={classes.filterButtonsContainer}>
+                        <Button size="small" variant="outlined" className={classes.filterButton}>Instant Book</Button>
+                     </div>
+                     <div className={classes.filterButtonsContainer}>
+                        <Button size="small" variant="outlined" className={classes.filterButton}>More Filters</Button>
+                     </div>
+                  </div>
+                  <Typography variant="caption">Review COVID-19 travel restrictions before you book</Typography>
+               </div>
+            </Grid>
             {loading ? isLoading : data?.countryListings.map((oneListing: IListing) => (
                <Grid item xs={12} className={classes.gridItem} key={oneListing._id} >
 
@@ -204,6 +246,6 @@ export default function ListingContents() {
 
 
    if (loading) return isLoading
-   if (error) return isLoading
+   if (error) return isError
    else return HasLoaded
 }

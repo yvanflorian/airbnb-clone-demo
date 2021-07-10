@@ -18,6 +18,8 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
 import ChevronRightIcon from "@material-ui/icons/ChevronRight"
 import AddIcon from '@material-ui/icons/Add'
 import RemoveIcon from '@material-ui/icons/Remove'
+import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank'
+import CheckBoxIcon from '@material-ui/icons/CheckBox'
 
 
 const useStyles = makeStyles((theme: AugmentedTheme) => createStyles({
@@ -122,6 +124,8 @@ export default function MapArea() {
                         <FormControlLabel
                            control={
                               <Checkbox
+                                 icon={<CheckBoxOutlineBlankIcon fontSize="small" />}
+                                 checkedIcon={<CheckBoxIcon fontSize="small" />}
                                  checked={true}
                                  color="default"
                               />
