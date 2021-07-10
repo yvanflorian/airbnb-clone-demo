@@ -62,6 +62,9 @@ const baretheme: Theme = createMuiTheme({
       //   ' Arial'
     ].join(","),
     fontSize: 16,
+    button: {
+      textTransform: "none",
+    },
   },
 })
 

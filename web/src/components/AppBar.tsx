@@ -1,4 +1,4 @@
-
+import MyLink from "./MyLink"
 //mui-core
 import { fade, makeStyles, Theme, createStyles } from "@material-ui/core/styles"
 import AppBar from "@material-ui/core/AppBar"
@@ -78,7 +78,10 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
    },
    becomeHostText: {
       fontSize: theme.typography.caption.fontSize
-   }
+   },
+   linkAttribute: {
+      textDecoration: "none"
+   },
 }))
 
 export default function Appbar() {
@@ -91,17 +94,21 @@ export default function Appbar() {
             className={classes.appBar}
          >
             <ToolBar className={classes.toolBarContents}>
-               <div className={classes.logoName}>
-                  <img className={classes.logoStyle} src="/favicon.png" alt="logo" />
-                  <Typography
-                     variant="h6"
-                     noWrap
-                     color="primary"
-                     className={classes.logoText}
-                  >
-                     airbnb
-                  </Typography>
-               </div>
+               <MyLink to="/">
+                  <div className={classes.logoName}>
+                     <img className={classes.logoStyle} src="/favicon.png" alt="logo" />
+                     <Typography
+                        variant="h6"
+                        noWrap
+                        color="primary"
+                        className={classes.logoText}
+                     >
+                        airbnb
+                     </Typography>
+                  </div>
+               </MyLink>
+               {/* <Link to="/" className={classes.linkAttribute}>
+               </Link> */}
                <div className={classes.search}>
                   <SearchIcon className={classes.searchIcon} />
                   <InputBase

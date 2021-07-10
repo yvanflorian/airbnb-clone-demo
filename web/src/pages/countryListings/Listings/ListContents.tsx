@@ -38,7 +38,6 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
    },
    filterButton: {
       borderRadius: "30px !important",
-      textTransform: "none"
    },
    imageListingContainer: {
       borderRadius: "5%",
@@ -176,7 +175,7 @@ export default function ListingContents() {
             </Grid>
             {loading ? isLoading : data?.countryListings.map((oneListing: IListing) => (
                <Grid item xs={12} className={classes.gridItem} key={oneListing._id} >
-
+                  {/* image */}
                   <div className={classes.imageListingContainer}>
                      <img
                         src={`${oneListing.images.picture_url}`}
@@ -184,6 +183,7 @@ export default function ListingContents() {
                         className={classes.imageListing}
                      />
                   </div>
+                  {/* listingDescription */}
                   <div className={classes.listingDescription}>
                      <div>
                         <div className={classes.firstTextLineContainer}>

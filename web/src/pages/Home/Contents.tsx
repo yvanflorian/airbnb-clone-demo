@@ -1,5 +1,6 @@
 import { gql, useQuery } from "@apollo/client"
 import { Link } from "react-router-dom"
+import clsx from "clsx"
 //mui-core
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles"
 import Typography from "@material-ui/core/Typography"
@@ -7,13 +8,15 @@ import Grid from "@material-ui/core/Grid"
 import Paper from "@material-ui/core/Paper"
 import React from "react"
 
+
+//https://a0.muscache.com/im/pictures/676c0a60-2a5a-4598-aeeb-10a81aa5232f.jpg?aki_policy=large
+
 const useStyles = makeStyles((theme: Theme) =>
    createStyles({
       firstImage: {
-         // display: "flex",
-         // alignItems: "stretch",
-         // // width: "100vw",
-         // position: "relative",
+      },
+      linkAttribute: {
+         textDecoration: "none"
       },
       imageContainer: {
          width: "100%",
@@ -76,17 +79,24 @@ const useStyles = makeStyles((theme: Theme) =>
             left: "23%",
          },
       },
+      exploreNearbylayout: {
+         [theme.breakpoints.down("md")]: {
+            paddingLeft: "40px"
+         },
+         [theme.breakpoints.up("md")]: {
+            paddingLeft: "80px",
+            paddingRight: "80px"
+         }
+      },
       title: {
-         margin: theme.spacing(4),
-         paddingLeft: theme.spacing(6),
+         marginTop: theme.spacing(4),
          fontWeight: 800,
          [theme.breakpoints.down("md")]: {
-            fontSize: "2.4rem",
             fontWeight: 500,
          },
       },
       cardsContainer: {
-         padding: theme.spacing(3),
+         paddingTop: theme.spacing(2),
       },
       cards: {
          display: "flex",
@@ -136,17 +146,17 @@ export default function Contents() {
             </Typography>
          </div>
          <div>
-            <Typography className={classes.title} variant="h5">
+            <Typography className={clsx(classes.title, classes.exploreNearbylayout)} variant="h5">
                Explore nearby
             </Typography>
-            <div className={classes.cardsContainer}>
+            <div className={(clsx(classes.cardsContainer, classes.exploreNearbylayout))}>
                <Grid container spacing={3}>
                   {loading
                      ? isLoading
                      : data.availableCountries.map(
                         (oneCountry: ICountry, index: React.Key) => (
-                           <Grid item sm={4} key={index}>
-                              <Link to={`/${oneCountry.country_code}`}>
+                           <Grid item lg={3} md={4} xs={12} key={index}>
+                              <Link to={`/${oneCountry.country_code}`} className={classes.linkAttribute}>
                                  <Paper className={classes.cards} elevation={0}>
                                     <img
                                        src={`https://www.countryflags.io/${oneCountry.country_code}/flat/64.png`}
