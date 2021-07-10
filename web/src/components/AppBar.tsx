@@ -1,6 +1,6 @@
 
 //mui-core
-import { fade, makeStyles, Theme, createStyles} from "@material-ui/core/styles"
+import { fade, makeStyles, Theme, createStyles } from "@material-ui/core/styles"
 import AppBar from "@material-ui/core/AppBar"
 import Typography from "@material-ui/core/Typography"
 import ToolBar from "@material-ui/core/Toolbar"
@@ -13,87 +13,87 @@ import MenuIcon from '@material-ui/icons/Menu'
 import SearchIcon from '@material-ui/icons/Search';
 
 
-const useStyles = makeStyles((theme: Theme)=>createStyles({
-   root:{
+const useStyles = makeStyles((theme: Theme) => createStyles({
+   root: {
       display: "flex",
    },
    appBar: {
-      backgroundColor: theme.palette.common.white
+      backgroundColor: theme.palette.common.white,
    },
-   toolBarContents:{
-      display:"flex",
+   toolBarContents: {
+      display: "flex",
       justifyContent: "space-around",
    },
-   logoName:{
+   logoName: {
       display: "flex",
       flexDirection: "row",
       alignItems: "center",
    },
-   logoStyle:{
-      width:"50px",
+   logoStyle: {
+      width: "50px",
       height: "50px"
    },
-   logoText:{
+   logoText: {
       fontWeight: 700
    },
-   rightItems:{
+   rightItems: {
       padding: theme.spacing(2)
    },
-   search:{
+   search: {
       position: "relative",
       borderRadius: theme.shape.borderRadius,
-      backgroundColor:fade(theme.palette.common.black , 0.15),
+      backgroundColor: fade(theme.palette.common.black, 0.15),
       '&:hover': {
-        backgroundColor: fade(theme.palette.common.black, 0.25),
+         backgroundColor: fade(theme.palette.common.black, 0.25),
       },
       marginRight: theme.spacing(2),
       marginLeft: 0,
       width: '100%',
       [theme.breakpoints.up('sm')]: {
-        marginLeft: theme.spacing(3),
-        width: 'auto',
+         marginLeft: theme.spacing(3),
+         width: 'auto',
       },
    },
    searchIcon: {
-     padding: theme.spacing(0, 2),
-     height: '100%',
-     position: 'absolute',
-     pointerEvents: 'none',
-     display: 'flex',
-     alignItems: 'center',
-     justifyContent: 'center',
+      padding: theme.spacing(0, 2),
+      height: '100%',
+      position: 'absolute',
+      pointerEvents: 'none',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
    },
    inputRoot: {
-     color: theme.palette.common.black,
+      color: theme.palette.common.black,
    },
    inputInput: {
-     padding: theme.spacing(1, 1, 1, 0),
-     // vertical padding + font size from searchIcon
-     paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-     transition: theme.transitions.create('width'),
-     width: '100%',
-     [theme.breakpoints.up('md')]: {
-       width: '20ch',
-     },
+      padding: theme.spacing(1, 1, 1, 0),
+      // vertical padding + font size from searchIcon
+      paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
+      transition: theme.transitions.create('width'),
+      width: '100%',
+      [theme.breakpoints.up('md')]: {
+         width: '20ch',
+      },
    },
-   becomeHostText:{
+   becomeHostText: {
       fontSize: theme.typography.caption.fontSize
    }
 }))
 
-export default function Appbar(){
+export default function Appbar() {
    const classes = useStyles()
-   
-   return(
+
+   return (
       <div className={classes.root}>
          <AppBar
-            position="static"
+            position="fixed"
             className={classes.appBar}
          >
             <ToolBar className={classes.toolBarContents}>
                <div className={classes.logoName}>
-                  <img className={classes.logoStyle} src="/favicon.png" alt="logo"/>
-                  <Typography 
+                  <img className={classes.logoStyle} src="/favicon.png" alt="logo" />
+                  <Typography
                      variant="h6"
                      noWrap
                      color="primary"
@@ -103,13 +103,13 @@ export default function Appbar(){
                   </Typography>
                </div>
                <div className={classes.search}>
-                  <SearchIcon className={classes.searchIcon}/>
+                  <SearchIcon className={classes.searchIcon} />
                   <InputBase
                      placeholder="Start your search"
                      inputProps={{ 'aria-label': 'search' }}
                      classes={{
-                       root: classes.inputRoot,
-                       input: classes.inputInput,
+                        root: classes.inputRoot,
+                        input: classes.inputInput,
                      }}
                   />
                </div>
@@ -118,10 +118,10 @@ export default function Appbar(){
                      <Typography variant="caption"> Become a Host</Typography>
                   </IconButton>
                   <IconButton aria-label="Select Language" size="small" className={classes.rightItems}>
-                     <LanguageIcon/>
+                     <LanguageIcon />
                   </IconButton>
                   <IconButton size="small" className={classes.rightItems}>
-                     <MenuIcon/>
+                     <MenuIcon />
                      <AccountCircleIcon />
                   </IconButton>
                </div>

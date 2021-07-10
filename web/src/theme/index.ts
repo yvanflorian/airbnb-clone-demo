@@ -1,7 +1,11 @@
-import { responsiveFontSizes } from "@material-ui/core/styles"
-import createTheme, { Theme } from "@material-ui/core/styles/createTheme"
+import {
+  responsiveFontSizes,
+  createMuiTheme,
+  Theme,
+} from "@material-ui/core/styles"
+// import createTheme, { Theme } from "@material-ui/core/styles/createTheme"
 
-declare module "@material-ui/core/styles/createTheme" {
+declare module "@material-ui/core/styles/createMuiTheme" {
   interface Theme {
     buttons: {
       main: React.CSSProperties["color"]
@@ -23,7 +27,7 @@ declare module "@material-ui/core/styles/createPalette" {
   }
 }
 
-const baretheme: Theme = createTheme({
+const baretheme: Theme = createMuiTheme({
   buttons: {
     main: "#5babfa",
   },
@@ -61,5 +65,5 @@ const baretheme: Theme = createTheme({
   },
 })
 
-const theme = responsiveFontSizes(baretheme)
+const theme: Theme = responsiveFontSizes(baretheme)
 export default theme

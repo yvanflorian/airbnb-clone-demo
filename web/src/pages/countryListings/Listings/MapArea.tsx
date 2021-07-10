@@ -5,7 +5,7 @@ import clsx from "clsx"
 import { CountryListingContext } from "./../dataContext"
 import { IListing } from "../../../types/Listing"
 //mui-core
-import { makeStyles, Theme, createStyles } from "@material-ui/core/styles"
+import { makeStyles, Theme as AugmentedTheme, createStyles } from "@material-ui/core/styles"
 // import Button from "@material-ui/core/Button"
 import IconButton from "@material-ui/core/IconButton"
 import Typography from "@material-ui/core/Typography"
@@ -20,9 +20,12 @@ import AddIcon from '@material-ui/icons/Add'
 import RemoveIcon from '@material-ui/icons/Remove'
 
 
-const useStyles = makeStyles((theme: Theme) => createStyles({
+const useStyles = makeStyles((theme: AugmentedTheme) => createStyles({
    root: {
-      padding: theme.spacing(2),
+      position: "sticky",
+      height: "100vh",
+      //adding the height of the toolbar plus few pixels
+      top: `calc(${theme.mixins.toolbar.minHeight}px + ${theme.spacing(1)}px)`
    },
    controlRegion: {
       padding: theme.spacing(2),

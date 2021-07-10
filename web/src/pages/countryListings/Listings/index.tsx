@@ -8,6 +8,7 @@ import Slide from "@material-ui/core/Slide"
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles"
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
+   offset: theme.mixins.toolbar,
    mapArea: {
       // backgroundColor: "#e8e8e8"
    }
@@ -18,6 +19,7 @@ export default function Listings() {
 
    const fullLayout =
       <div>
+         <div className={classes.offset} />
          <Grid
             container
          >
@@ -42,6 +44,7 @@ export default function Listings() {
 
    const mapOnly =
       <div>
+         <div className={classes.offset} />
          <Slide in={fullMap} direction="left" timeout={800}>
             <Grid
                container

@@ -64,7 +64,7 @@ export const fetchCountryListing = async (code: String) => {
   try {
     const countries: IListing[] = await Listing.find({
       "address.country_code": code,
-    }).limit(5)
+    }).limit(10)
     return countries
   } catch (error) {
     console.error("GQL Fetch one country Error", error)
