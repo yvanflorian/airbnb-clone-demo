@@ -38,7 +38,6 @@ export default function Listings() {
             >
                <MapArea />
             </Grid>
-
          </Grid>
       </div>
 
