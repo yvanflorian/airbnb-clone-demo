@@ -25,15 +25,15 @@ export default function Listings() {
          >
             <Grid
                item
-               md={7}
+               lg={7}
                xs={12}
             >
                <ListingContents />
             </Grid>
             <Grid
                item
-               md={5}
-               xs={6}
+               lg={5}
+               xs={12}
                className={classes.mapArea}
             >
                <MapArea />

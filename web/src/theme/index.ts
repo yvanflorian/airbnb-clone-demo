@@ -66,6 +66,16 @@ const baretheme: Theme = createMuiTheme({
       textTransform: "none",
     },
   },
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 600,
+      // md: 960,
+      md: 750,
+      lg: 1130,
+      xl: 1920,
+    },
+  },
 })
 
 const theme: Theme = responsiveFontSizes(baretheme)
