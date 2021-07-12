@@ -1,6 +1,5 @@
-import useMediaQuery from '@material-ui/core/useMediaQuery'
-
 //mui-core
+import useMediaQuery from '@material-ui/core/useMediaQuery'
 import { createStyles, makeStyles, Theme, useTheme } from "@material-ui/core/styles"
 import AppBar from "@material-ui/core/AppBar"
 import Toolbar from "@material-ui/core/Toolbar"
@@ -28,7 +27,13 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
    }
 }))
 
-export const ListingBottomBar = () => {
+/**
+ * Bottom Fixed AppBar which will appear only 
+ * on small screens
+ * 
+ * @returns JSX Element
+ */
+export const ListingBottomBar = (): JSX.Element => {
    const classes = useStyles()
    const theme = useTheme()
    const mobile: Boolean = useMediaQuery(theme.breakpoints.down("sm"))

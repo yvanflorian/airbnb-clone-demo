@@ -16,7 +16,6 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
       [theme.breakpoints.down("sm")]: {
          flexDirection: "column",
          alignItems: "stretch",
-         padding: theme.spacing(2),
       },
       [theme.breakpoints.up("md")]: {
          borderBottom: "1px solid #DDDDDD !important"

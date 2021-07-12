@@ -1,6 +1,7 @@
+import { useEffect } from "react"
 import { ThemeProvider } from "@material-ui/core/styles"
-import { BrowserRouter as Router, Switch, Route} from "react-router-dom"
-import { ApolloClient, ApolloLink, ApolloProvider, createHttpLink,InMemoryCache } from "@apollo/client"
+import { BrowserRouter as Router, Switch, Route, useLocation } from "react-router-dom"
+import { ApolloClient, ApolloLink, ApolloProvider, createHttpLink, InMemoryCache } from "@apollo/client"
 //
 import './App.css'
 import theme from "./theme"
@@ -17,15 +18,26 @@ const client = new ApolloClient({
   link: myLink
 })
 
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+}
 function App() {
+
   return (
     <div>
       <Router>
+        <ScrollToTop />
         <ApolloProvider client={client}>
           <ThemeProvider theme={theme}>
             <Switch>
-              <Route exact path="/" component={Home}/>
-              <Route path="/:countryCode" component={CountryListings}/>
+              <Route exact path="/" component={Home} />
+              <Route path="/:countryCode" component={CountryListings} />
             </Switch>
           </ThemeProvider>
         </ApolloProvider>

@@ -1,6 +1,7 @@
 // import { useContext } from "react";
 //mui-core
-import { createStyles, makeStyles, Theme } from "@material-ui/core/styles"
+import useMediaQuery from "@material-ui/core/useMediaQuery"
+import { createStyles, makeStyles, Theme, useTheme } from "@material-ui/core/styles"
 import Typography from "@material-ui/core/Typography"
 import Button from "@material-ui/core/Button"
 
@@ -29,25 +30,36 @@ interface BeforeListItemsProps {
  */
 export default function ListingFilters(props: BeforeListItemsProps) {
    const classes = useStyles()
+   const theme = useTheme()
+   const mobile: Boolean = useMediaQuery(theme.breakpoints.down("sm"))
 
    return (
       <div>
          <Typography variant="caption">{`${props.countStays} stays`}</Typography>
          <Typography variant="h5"> Stays in {props.staysInPlace}</Typography>
-         <div className={classes.filterButtonsRegion}>
-            <div className={classes.filterButtonsContainer}>
-               <Button size="small" variant="outlined" className={classes.filterButton}>Prices</Button>
+
+         {mobile ?
+            <div className={classes.filterButtonsRegion}>
+               <div className={classes.filterButtonsContainer}>
+                  <Button size="small" variant="outlined" className={classes.filterButton}>More Filters</Button>
+               </div>
             </div>
-            <div className={classes.filterButtonsContainer}>
-               <Button size="small" variant="outlined" className={classes.filterButton}>Type of Place</Button>
+            :
+            <div className={classes.filterButtonsRegion}>
+               <div className={classes.filterButtonsContainer}>
+                  <Button size="small" variant="outlined" className={classes.filterButton}>Prices</Button>
+               </div>
+               <div className={classes.filterButtonsContainer}>
+                  <Button size="small" variant="outlined" className={classes.filterButton}>Type of Place</Button>
+               </div>
+               <div className={classes.filterButtonsContainer}>
+                  <Button size="small" variant="outlined" className={classes.filterButton}>Instant Book</Button>
+               </div>
+               <div className={classes.filterButtonsContainer}>
+                  <Button size="small" variant="outlined" className={classes.filterButton}>More Filters</Button>
+               </div>
             </div>
-            <div className={classes.filterButtonsContainer}>
-               <Button size="small" variant="outlined" className={classes.filterButton}>Instant Book</Button>
-            </div>
-            <div className={classes.filterButtonsContainer}>
-               <Button size="small" variant="outlined" className={classes.filterButton}>More Filters</Button>
-            </div>
-         </div>
+         }
          <Typography variant="caption">Review COVID-19 travel restrictions before you book</Typography>
       </div>
    )
