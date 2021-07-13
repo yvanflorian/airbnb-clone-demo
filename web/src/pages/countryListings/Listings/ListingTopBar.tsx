@@ -60,9 +60,7 @@ export const ListingTopBar = (): JSX.Element => {
             </MyLink>
             <ButtonGroup variant="text" >
                <Button size="small" className={classes.button1}> Add dates</Button>
-               {/* <Button size="small" className={classes.button2}>
-               </Button> */}
-               <IconButton size="small">
+               <IconButton>
                   <FilterListIcon />
                </IconButton>
             </ButtonGroup>

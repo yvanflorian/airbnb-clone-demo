@@ -51,17 +51,31 @@ const baretheme: Theme = createMuiTheme({
   },
   typography: {
     fontFamily: [
-      "Montserrat",
-      //   ' -apple-system',
-      //   ' BlinkMacSystemFont',
-      //   ' Roboto',
-      //   ' Arial',
+      "Circular",
+      " -apple-system",
+      " BlinkMacSystemFont",
+      " Roboto",
+      //   ' Helvetica Neue',
       " sans-serif",
       //   ' HP Simplified Light',
       //   ' Helvetica',
-      //   ' Arial'
+      //   ' Arial' sans-serif;
     ].join(","),
-    fontSize: 16,
+    fontSize: 15,
+    h4: {
+      fontWeight: 700,
+    },
+    body2: {
+      fontWeight: 300,
+      color: "#717171",
+    },
+    subtitle1: {
+      fontWeight: 300,
+      color: "#717171",
+    },
+    subtitle2: {
+      fontWeight: 700,
+    },
     button: {
       textTransform: "none",
     },

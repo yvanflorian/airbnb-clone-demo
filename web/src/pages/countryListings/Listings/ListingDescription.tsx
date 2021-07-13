@@ -1,6 +1,7 @@
 
 import { IListing } from "./../../../types/Listing"
 import useMediaQuery from '@material-ui/core/useMediaQuery'
+import clsx from "clsx"
 //mui-core
 import { makeStyles, createStyles, Theme, useTheme } from "@material-ui/core/styles"
 import Typography from "@material-ui/core/Typography"
@@ -26,8 +27,14 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
       alignItems: "flex-start",
       justifyContent: "space-between"
    },
+   textDescription: {
+      display: "-webkit-box",
+      boxOrient: "vertical",
+      lineClamp: 1,
+      textOverflow: "ellipsis",
+      overflow: "hidden"
+   },
    listingName: {
-      fontWeight: 600
    },
    divider: {
       borderTop: "1px solid #DDDDDD !important",
@@ -90,17 +97,18 @@ export default function ListingDescription(props: ListingDescriptionProps) {
             </div>
             :
 
-            <Typography variant="caption">No reviews yet </Typography>
+            <Typography variant="subtitle1">No reviews yet </Typography>
          }
          <Typography
-            variant="caption"
+            variant="body2"
+            className={classes.textDescription}
          >
             {`Entire ${props.listing.property_type} in ${props.listing.address.suburb}`}
          </Typography>
-         <Typography variant="caption">{props.listing.name}</Typography>
+         <Typography variant="body2">{props.listing.name}</Typography>
          <div className={classes.reviewAmountText}>
-            <Typography variant="subtitle2">{`$${props.listing.price}`}</Typography>
-            <Typography variant="caption"> / night</Typography>
+            <Typography variant="subtitle2">{`$${props.listing.price} `}</Typography>
+            <Typography variant="body2"> / night</Typography>
          </div>
       </div>
 
@@ -110,11 +118,12 @@ export default function ListingDescription(props: ListingDescriptionProps) {
             <div className={classes.firstTextLineContainer}>
                <div>
                   <Typography
-                     variant="caption"
+                     variant="body2"
+                     className={classes.textDescription}
                   >
                      {`Entire ${props.listing.property_type} in ${props.listing.address.suburb}`}
                   </Typography>
-                  <Typography className={classes.listingName} variant="subtitle2">{props.listing.name}</Typography>
+                  <Typography className={clsx(classes.listingName, classes.textDescription)}>{props.listing.name}</Typography>
                </div>
                <div>
                   <IconButton>
@@ -126,11 +135,11 @@ export default function ListingDescription(props: ListingDescriptionProps) {
          <div>
             {/* Guests and Amenities */}
             <div className={classes.divider} />
-            <Typography variant="caption">{`${props.listing.guests_included} guests.${props.listing.bedrooms}bedroom.${props.listing.beds}bed`}</Typography>
+            <Typography variant="body2">{`${props.listing.guests_included} guests.${props.listing.bedrooms} bedroom.${props.listing.beds} bed`}</Typography>
             <div className={classes.amenities}>
                {props.listing.amenities.slice(0, 4).map((amenity, index) => (
                   <li key={index}>
-                     <Typography key={index} variant="caption">{`${amenity}.`}</Typography>
+                     <Typography key={index} variant="body2">{`${amenity}.`}</Typography>
                   </li>
                ))}
             </div>
@@ -143,15 +152,15 @@ export default function ListingDescription(props: ListingDescriptionProps) {
                      <IconButton color="primary" className={classes.reviewStar} size="small">
                         <StarIcon />
                      </IconButton>
-                     <Typography variant="subtitle2" className={classes.reviewAmount}>{Math.round((Number(props.listing.review_scores.review_scores_rating) * 0.05) * 100) / 100} </Typography>
-                     <Typography variant="caption">({props.listing.number_of_reviews} reviews)</Typography>
+                     <Typography className={classes.reviewAmount}>{Math.round((Number(props.listing.review_scores.review_scores_rating) * 0.05) * 100) / 100} </Typography>
+                     <Typography variant="body2">({props.listing.number_of_reviews} reviews)</Typography>
                   </div>
                   : null
                }
             </div>
             <div className={classes.reviewAmountText}>
-               <Typography variant="subtitle2" className={classes.reviewAmount}>{`$${props.listing.price}`}</Typography>
-               <Typography variant="subtitle2"> / night</Typography>
+               <Typography className={classes.reviewAmount}>{`$${props.listing.price}`}</Typography>
+               <Typography > / night</Typography>
             </div>
          </div>
       </div>

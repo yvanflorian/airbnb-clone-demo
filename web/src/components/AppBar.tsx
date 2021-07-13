@@ -88,6 +88,10 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
    linkAttribute: {
       textDecoration: "none"
    },
+   searchButtons: {
+      paddingLeft: theme.spacing(2),
+      paddingRight: theme.spacing(2)
+   }
 }))
 
 interface AppbarProps {
@@ -124,9 +128,15 @@ export default function Appbar(props: AppbarProps) {
                </MyLink>
                <div className={classes.search}>
                   <ButtonGroup variant="text" aria-label="outlined primary button group">
-                     <Button size="small">Place</Button>
-                     <Button size="small">Add date</Button>
-                     <Button size="small">Add Guests</Button>
+                     <Button size="small" className={classes.searchButtons}>
+                        <Typography variant="caption">Place</Typography>
+                     </Button>
+                     <Button size="small" className={classes.searchButtons}>
+                        <Typography variant="caption">Add dates</Typography>
+                     </Button>
+                     <Button size="small" className={classes.searchButtons}>
+                        <Typography variant="caption">Add guests</Typography>
+                     </Button>
                   </ButtonGroup>
                   <IconButton size="small" color="primary" aria-label="upload picture">
                      <SearchIcon />
