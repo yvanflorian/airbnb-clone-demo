@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme: Theme) =>
          height: "85vh",
       },
       imageContent: {
-         width: "100%",
+         width: "102%",
          height: "100%",
          backgroundSize: "cover",
          backgroundRepeat: "no-repeat",
@@ -101,14 +101,29 @@ const useStyles = makeStyles((theme: Theme) =>
       cards: {
          display: "flex",
          flexDirection: "row",
-         flexWrap: "wrap",
+         // flexWrap: "wrap",
          justifyContent: "flex-start",
          padding: theme.spacing(2),
       },
       countryTypo: {
          padding: theme.spacing(2),
          fontWeight: 500,
+
       },
+      grid: {
+         [theme.breakpoints.down("sm")]: {
+            display: "grid",
+            overflow: "auto clip !important",
+            "--column-count": 5,
+            gridTemplateRows: "repeat(2,auto)",
+            gridTemplateColumns: "repeat(calc(var(--column-count) - 2), calc(100% - 150px)) 100%"
+         }
+      },
+      gridItem: {
+         [theme.breakpoints.down("sm")]: {
+            flex: "0 0 80%",
+         }
+      }
    })
 )
 
@@ -150,12 +165,12 @@ export default function Contents() {
                Explore nearby
             </Typography>
             <div className={(clsx(classes.cardsContainer, classes.exploreNearbylayout))}>
-               <Grid container spacing={3}>
+               <Grid container spacing={3} className={classes.grid}>
                   {loading
                      ? isLoading
                      : data.availableCountries.map(
                         (oneCountry: ICountry, index: React.Key) => (
-                           <Grid item lg={3} md={4} xs={12} key={index}>
+                           <Grid item lg={3} md={4} xs={12} key={index} className={classes.gridItem}>
                               <Link to={`/${oneCountry.country_code}`} className={classes.linkAttribute}>
                                  <Paper className={classes.cards} elevation={0}>
                                     <img
