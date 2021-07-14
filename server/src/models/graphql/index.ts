@@ -109,11 +109,37 @@ export const typeDefs = gql`
     availability: Availability
     review_scores: ReviewScore
   }
+  type ListingsWithCount {
+    listing: [Listing]
+    stays: Int
+  }
+  input qGreaterThan {
+    gte: Int
+  }
+  input qArrayMatch {
+    all: [String]
+  }
+  input qCountryObject {
+    country: String!
+    name: String
+    beds: qGreaterThan
+    bathrooms: qGreaterThan
+    bedrooms: qGreaterThan
+    guests_included: qGreaterThan
+    property_type: String
+    is_superhost: Boolean
+    amenities: qArrayMatch
+  }
+  input qCountry {
+    query: qCountryObject
+    limit: Int
+    skip: Int
+  }
   type Query {
     hello: String
     oneListing(id: String): Listing
     availableCountries: [Country]
-    countryListings(code: String): [Listing]
+    countryListings(q: qCountry): ListingsWithCount
   }
 `
 
@@ -141,7 +167,7 @@ const someResolvers: ResolverMap = {
     hello: () => "hello World",
     oneListing: (_, args) => fetchOneListing(args.id),
     availableCountries: () => fetchDistinctCountries(),
-    countryListings: (_, args) => fetchCountryListing(args.code),
+    countryListings: (_, args) => fetchCountryListing(args.q),
   },
 }
 

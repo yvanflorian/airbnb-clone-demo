@@ -1,4 +1,5 @@
 import { IListing, Listing } from "../mongoose/Listing"
+import { gqlListing, IQGeneral, keyChange } from "./ListingUtils"
 
 interface IAggregation {
   _id: {
@@ -11,6 +12,10 @@ interface ICountries {
   country_code: String
 }
 
+interface IListingWithCount {
+  listing: IListing[]
+  stays: string
+}
 /**
  * GQL Resolver to fetch only one Listing based on the ID
  *
@@ -59,14 +64,81 @@ export const fetchDistinctCountries = async () => {
   }
 }
 
-export const fetchCountryListing = async (code: String) => {
-  console.log(`[Log] GQL Fetch one Country Related Listings: "${code}"`)
+/**
+ * Function to determine the number of stays based on
+ * various filters
+ */
+export const fetchCountListing = async (q: IQGeneral): Promise<string> => {
   try {
-    const countries: IListing[] = await Listing.find({
-      "address.country_code": code,
-    }).limit(10)
-    return countries
+    const count = await Listing.countDocuments(q.query).exec()
+    return count > 300 ? "300+" : count.toString()
+  } catch (error) {
+    console.error("GQL Fetch Count Listing Error", error)
+  }
+}
+
+const fetchListings = async (q: IQGeneral): Promise<IListingWithCount> => {
+  console.log("[Log] GQL Fetch one Country Related Listings", q)
+  try {
+    const countries: IListing[] = await Listing.find(q.query)
+      .limit(10)
+      .skip(q.skip)
+      .limit(q.limit)
+
+    const count: string = await fetchCountListing(q)
+    return {
+      listing: countries,
+      stays: count,
+    }
   } catch (error) {
     console.error("GQL Fetch one country Error", error)
+  }
+}
+
+/**
+ * Listing falling under one country code
+ * @param code country code
+ * @returns List
+ */
+export const fetchCountryListing = async (
+  gqlParam: gqlListing
+): Promise<IListingWithCount> => {
+  console.log("[Log] GQL one Country: Raw Params", gqlParam)
+  const mongooseQParam = keyChange(gqlParam.query)
+  const mongooseQ: IQGeneral = {
+    query: mongooseQParam,
+    limit: gqlParam.limit,
+    skip: gqlParam.skip,
+  }
+  return fetchListings(mongooseQ)
+}
+
+export const fetchDistinctAmenities = async (): Promise<string[]> => {
+  try {
+    const amenities: Array<string> = await Listing.distinct("amenities")
+    console.log("GQL Count Distinct Amenities:", amenities.length)
+    return amenities
+  } catch (error) {
+    console.error("GQL Fetch Disting Amenities Error", error)
+  }
+}
+
+export const fetchDistinctPropertyTypes = async (): Promise<string[]> => {
+  try {
+    const properties: Array<string> = await Listing.distinct("property_type")
+    console.log("GQL Count Distinct Property Types:", properties.length)
+    return properties
+  } catch (error) {
+    console.error("GQL Fetch Disting Property Types Error", error)
+  }
+}
+
+export const fetchDistinctRoomTypes = async (): Promise<string[]> => {
+  try {
+    const room: Array<string> = await Listing.distinct("room_type")
+    console.log("GQL Count Distinct Room Types:", room.length)
+    return room
+  } catch (error) {
+    console.error("GQL Fetch Disting Room Types Error", error)
   }
 }
