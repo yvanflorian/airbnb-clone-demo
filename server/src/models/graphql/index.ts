@@ -6,7 +6,10 @@ import { merge } from "lodash"
 import { ResolverMap } from "../../types/gqlResolver"
 import {
   fetchCountryListing,
+  fetchDistinctAmenities,
   fetchDistinctCountries,
+  fetchDistinctPropertyTypes,
+  fetchDistinctRoomTypes,
   fetchOneListing,
 } from "./Listing"
 
@@ -111,13 +114,16 @@ export const typeDefs = gql`
   }
   type ListingsWithCount {
     listing: [Listing]
-    stays: Int
+    stays: String
   }
   input qGreaterThan {
     gte: Int
   }
   input qArrayMatch {
     all: [String]
+  }
+  input qObjectIn {
+    in: [String]
   }
   input qCountryObject {
     country: String!
@@ -126,7 +132,8 @@ export const typeDefs = gql`
     bathrooms: qGreaterThan
     bedrooms: qGreaterThan
     guests_included: qGreaterThan
-    property_type: String
+    property_type: qObjectIn
+    room_type: qObjectIn
     is_superhost: Boolean
     amenities: qArrayMatch
   }
@@ -140,6 +147,9 @@ export const typeDefs = gql`
     oneListing(id: String): Listing
     availableCountries: [Country]
     countryListings(q: qCountry): ListingsWithCount
+    amenities: [String]
+    properties: [String]
+    roomTypes: [String]
   }
 `
 
@@ -168,6 +178,9 @@ const someResolvers: ResolverMap = {
     oneListing: (_, args) => fetchOneListing(args.id),
     availableCountries: () => fetchDistinctCountries(),
     countryListings: (_, args) => fetchCountryListing(args.q),
+    amenities: () => fetchDistinctAmenities(),
+    properties: () => fetchDistinctPropertyTypes(),
+    roomTypes: () => fetchDistinctRoomTypes(),
   },
 }
 

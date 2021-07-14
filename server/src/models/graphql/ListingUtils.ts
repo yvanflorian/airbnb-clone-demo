@@ -5,6 +5,10 @@ type gqlArrayMatch = {
   all: string[]
 }
 
+type gqlObjectIn = {
+  in: string[]
+}
+
 interface gqlQuery {
   country: string
   name?: string
@@ -12,7 +16,8 @@ interface gqlQuery {
   bathrooms?: gqlGreaterThan
   bedrooms?: gqlGreaterThan
   guests_included?: gqlGreaterThan
-  property_type?: string
+  property_type?: gqlObjectIn
+  room_type?: gqlObjectIn
   is_superhost?: boolean
   amenities?: gqlArrayMatch
 }
@@ -29,6 +34,9 @@ interface IArrayMatch {
   $all: gqlArrayMatch["all"]
 }
 
+interface IObjectIn {
+  $in: gqlObjectIn["in"]
+}
 export interface IQObject {
   "address.country_code": gqlQuery["country"]
   name?: gqlQuery["name"]
@@ -36,7 +44,8 @@ export interface IQObject {
   bathrooms?: IGreaterThan
   bedrooms?: IGreaterThan
   guests_included?: IGreaterThan
-  property_type?: gqlQuery["property_type"]
+  property_type?: IObjectIn
+  room_type?: IObjectIn
   "host.host_is_superhost"?: gqlQuery["is_superhost"]
   amenities?: IArrayMatch
 }
@@ -59,6 +68,9 @@ export const keyChange = ({
   guests_included,
   is_superhost,
   amenities,
+  property_type,
+  room_type,
+  ...remainder
 }: gqlQuery): IQObject => {
   const final: IQObject = {
     "address.country_code": country,
@@ -71,6 +83,8 @@ export const keyChange = ({
     : null
   is_superhost ? (final["host.host_is_superhost"] = is_superhost) : null
   amenities ? (final.amenities = { $all: amenities.all }) : null
+  property_type ? (final.property_type = { $in: property_type.in }) : null
+  room_type ? (final.room_type = { $in: room_type.in }) : null
 
   return final
 }
