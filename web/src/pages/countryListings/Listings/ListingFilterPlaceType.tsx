@@ -1,6 +1,10 @@
 import React, { useState, useContext } from "react"
 import { useHistory } from "react-router-dom"
 import { CountryListingContext, useRouterQuery } from "./../dataContext"
+import { useSimpleFilterButton } from "../../../styles/Button"
+import { useCardPopoverStyles } from "./../../../styles/Card"
+import { useFilterDivider } from "./../../../styles/Divider"
+import { MyPopover } from "./../../../components/MyPopover"
 //mui-core
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles"
 // import Popper from "@material-ui/core/Popper"
@@ -14,26 +18,12 @@ import CardActions from '@material-ui/core/CardActions'
 import CardContent from '@material-ui/core/CardContent'
 import Checkbox from "@material-ui/core/Checkbox"
 import Divider from '@material-ui/core/Divider'
-import Popover from '@material-ui/core/Popover';
 
 //mui-icons
 import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank"
 import CheckBoxIcon from "@material-ui/icons/CheckBox"
-import { queryByTitle } from "@testing-library/react"
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
-   rootCard: {
-      minWidth: "320px",
-      // borderRadius: "15px",
-      // boxShadow: "inset -1px 0px 0px 0px rgb(0 0 0 / 20%), 0px 1px 20px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%)"
-
-   },
-   paperRoot: {
-      borderRadius: "15px",
-      border: "0.5px solid rgba(118, 118, 118, 0.28) !important",
-      boxShadow: "none",
-      marginTop: theme.spacing(1)
-   },
    divider: {
       opacity: 0.5
    },
@@ -57,6 +47,10 @@ interface PlaceTypeProps {
  */
 export const ListingFilterPlaceType = (props: PlaceTypeProps): JSX.Element => {
    const classes = useStyles()
+   const buttonStyles = useSimpleFilterButton()
+   const cardStyles = useCardPopoverStyles()
+   const dividerStyles = useFilterDivider()
+   //
    let history = useHistory()
    let query = useRouterQuery()
    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
@@ -68,16 +62,7 @@ export const ListingFilterPlaceType = (props: PlaceTypeProps): JSX.Element => {
       setAnchorEl(anchorEl ? null : event.currentTarget)
    }
 
-   const handleClose = () => {
-      setAnchorEl(null)
-      console.log("clicked away...")
-   };
-
    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      console.log("room", rooms)
-      console.log("Event Target", event.target.name)
-      console.log("room index", rooms.indexOf(event.target.name))
-
       if ((rooms.indexOf(event.target.name) > -1)) {
          rooms.splice(rooms.indexOf(event.target.name), 1)
          setRooms([...rooms])
@@ -113,52 +98,47 @@ export const ListingFilterPlaceType = (props: PlaceTypeProps): JSX.Element => {
                      room_type: { in: rooms }
                   }
                })
-               history.push({
-                  pathname: `/${filters?.query.country}`,
-                  search: `rooms=${rooms}`
+               query.delete("rooms")
+               query.append("rooms", rooms.join("+"))
+               history.replace({
+                  search: query.toString()
                })
                break;
          }
       }
    }
+   /**
+    * Handle clicks away from the PopOver
+    */
+   const handleClose = () => {
+      setAnchorEl(null)
+      handleSaveFilters()
+   };
+
 
    const handleClearFilters = () => {
       setRooms([])
    }
 
    const open = Boolean(anchorEl);
-   const id = open ? "PopOver" : undefined;
-
-   console.log("Rooms", rooms)
-   console.log("Filters:", filters)
-   console.log("History", history)
-
+   const id = open ? "PlaceType" : undefined;
 
    return (
       <div>
-         <Button variant="outlined" className={classes.filterButton} onClick={handleOpenPopOver}>
+         <Button
+            variant="outlined"
+            onClick={handleOpenPopOver}
+            className={buttonStyles.root}
+         >
             <Typography>Type of Place</Typography>
          </Button>
-         <Popover
+         <MyPopover
             id={id}
             open={Boolean(anchorEl)}
             anchorEl={anchorEl}
             onClose={handleClose}
-            anchorOrigin={{
-               vertical: "bottom",
-               horizontal: "left",
-            }}
-            transformOrigin={{
-               vertical: "top",
-               horizontal: "left"
-            }}
-            PaperProps={{
-               classes: {
-                  root: classes.paperRoot
-               }
-            }}
          >
-            <Card className={classes.rootCard}>
+            <Card className={cardStyles.root}>
                <CardContent>
                   <FormControl component="fieldset" >
                      {props.rooms.map((roomtype, index) => (
@@ -180,14 +160,14 @@ export const ListingFilterPlaceType = (props: PlaceTypeProps): JSX.Element => {
                      ))}
                   </FormControl>
                </CardContent>
-               <Divider className={classes.divider} />
+               <Divider className={dividerStyles.root} />
                <CardActions className={classes.actions}>
                   <Button onClick={handleClearFilters}>Clear</Button>
                   <Button onClick={handleSaveFilters}>Save</Button>
                </CardActions>
             </Card>
             {/* <Typography>Content</Typography> */}
-         </Popover>
+         </MyPopover>
       </div>
 
    )

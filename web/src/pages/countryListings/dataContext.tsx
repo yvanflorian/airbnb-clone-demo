@@ -53,7 +53,7 @@ export interface ICountryListingFilters {
       guests_included?: IGreaterThan,
       property_type?: IObjectIn,
       room_type?: IObjectIn,
-      is_superhost?: string,
+      is_superhost?: boolean,
       amenities?: IArrayFilter,
    },
    limit: number,
@@ -139,7 +139,9 @@ export const CountryListingProvider: React.FC<React.ReactNode> = ({ children }) 
       skip: 0
    }
    let rooms = query.get("rooms")
-   if (rooms !== null) initFilters.query.room_type = { in: rooms.split(",") }
+   if (rooms !== null) initFilters.query.room_type = { in: rooms.split("+") }
+
+   if (query.has("superhost")) initFilters.query.is_superhost = Boolean(query.get("superhost"))
 
 
    const [filters, setFilters] = useState<ICountryListingFilters>(initFilters)
