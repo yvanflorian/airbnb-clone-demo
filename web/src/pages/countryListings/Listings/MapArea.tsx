@@ -94,8 +94,8 @@ export default function MapArea() {
                data !== null && data !== undefined ?
                   <MapContainer
                      center={[
-                        data.countryListings[0].address.location.coordinates[1],
-                        data.countryListings[0].address.location.coordinates[0]
+                        data.countryListings.listing[0].address.location.coordinates[1],
+                        data.countryListings.listing[0].address.location.coordinates[0]
                      ]}
                      zoom={13}
                      scrollWheelZoom={true}
@@ -149,7 +149,7 @@ export default function MapArea() {
                         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                      />
-                     {data?.countryListings.map((oneListing: IListing) => (
+                     {data?.countryListings.listing.map((oneListing: IListing) => (
                         <Marker position={[
                            oneListing.address.location.coordinates[1],
                            oneListing.address.location.coordinates[0]

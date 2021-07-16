@@ -40,11 +40,11 @@ const baretheme: Theme = createMuiTheme({
       main: "#4191ff",
     },
     text: {
-      primary: "#384452",
-      secondary: "#546b82",
+      primary: "#000000",
+      secondary: "##222222",
     },
     action: {
-      active: "#546b82",
+      active: "#000000",
       hover: "#d3e9ff",
       selected: "#e0f0ff",
     },

@@ -1,9 +1,10 @@
-// import { useContext } from "react";
+import { ListingFilterPlaceType } from "./ListingFilterPlaceType"
 //mui-core
 import useMediaQuery from "@material-ui/core/useMediaQuery"
 import { createStyles, makeStyles, Theme, useTheme } from "@material-ui/core/styles"
 import Typography from "@material-ui/core/Typography"
 import Button from "@material-ui/core/Button"
+
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
    filterButtonsRegion: {
@@ -23,7 +24,8 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 
 interface BeforeListItemsProps {
    staysInPlace?: string,
-   countStays: string
+   countStays: string,
+   roomTypes?: string[]
 }
 
 /**
@@ -56,7 +58,9 @@ export default function ListingFilters(props: BeforeListItemsProps) {
                   <Button variant="outlined" className={classes.filterButton}>Type of Place</Button>
                </div>
                <div className={classes.filterButtonsContainer}>
-                  <Button variant="outlined" className={classes.filterButton}>Instant Book</Button>
+                  <ListingFilterPlaceType
+                     rooms={props.roomTypes || []}
+                  />
                </div>
                <div className={classes.filterButtonsContainer}>
                   <Button variant="outlined" className={classes.filterButton}>More Filters</Button>

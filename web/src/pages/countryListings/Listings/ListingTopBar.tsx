@@ -55,7 +55,7 @@ export const ListingTopBar = (): JSX.Element => {
                   size="small"
                   startIcon={<KeyboardArrowLeftIcon />}
                >
-                  {data?.countryListings[0].address.country}
+                  {data?.countryListings.listing[0].address.country}
                </Button>
             </MyLink>
             <ButtonGroup variant="text" >
