@@ -114,9 +114,13 @@ export const ListingFilterBedRooms = (): JSX.Element => {
             setFilters({
                ...filters,
                query: {
-                  country: filters.query.country,
+                  ...filters.query,
+                  beds: undefined,
+                  bathrooms: undefined,
+                  bedrooms: undefined
                }
             })
+            if (query.has("page")) query.delete("page")
             if (query.has("beds")) query.delete("beds")
             if (query.has("bedrooms")) query.delete("bedrooms")
             if (query.has("bathrooms")) query.delete("bathrooms")
@@ -127,12 +131,13 @@ export const ListingFilterBedRooms = (): JSX.Element => {
             setFilters({
                ...filters,
                query: {
-                  country: filters.query.country,
+                  ...filters.query,
                   beds: { gte: beds },
                   bathrooms: { gte: bathrooms },
                   bedrooms: { gte: bedrooms }
                }
             })
+            if (query.has("page")) query.delete("page")
             query.delete("beds")
             query.delete("bathrooms")
             query.delete("bedrooms")

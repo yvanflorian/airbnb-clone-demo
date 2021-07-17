@@ -146,6 +146,7 @@ export const CountryListingProvider: React.FC<React.ReactNode> = ({ children }) 
 
    const [filters, setFilters] = useState<ICountryListingFilters>(initFilters)
 
+   console.log("Query Filters now: ", JSON.stringify(filters.query))
 
    const { loading, error, data } = useQuery<ICountryListing, IOneCountryParam>(
       COUNTRY_LISTINGS_Q, { variables: { param: filters } }

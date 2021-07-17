@@ -1,6 +1,6 @@
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import { MapContainer, TileLayer, Marker, Popup, Tooltip } from 'react-leaflet'
-import L from "leaflet"
+import L, { Map as LeafletMap } from "leaflet"
 import clsx from "clsx"
 import { CountryListingContext } from "../dataContext"
 import { IListing } from "../../../types/Listing"
@@ -71,6 +71,7 @@ const useStyles = makeStyles((theme: AugmentedTheme) => createStyles({
 export default function ListingMapArea() {
    const classes = useStyles()
    const { fullMap, setFullMap, data } = useContext(CountryListingContext)
+   const [map, setMap] = useState<LeafletMap>()
 
    //fake marker
    const icon: L.DivIcon = L.divIcon({
@@ -86,6 +87,31 @@ export default function ListingMapArea() {
       console.log("Full Map now is:", fullMap)
    }
 
+   //reset the map center to listings on the page
+   let locations: [number, number][] = []
+   data?.countryListings.listing.map((listing: IListing) => {
+      locations.push([listing.address.location.coordinates[1], listing.address.location.coordinates[0]])
+      return null
+   })
+   if (locations.length > 0) {
+      let bounds = new L.LatLngBounds(locations)
+      map?.fitBounds(bounds)
+   }
+
+
+   // const onMove = useCallback(() => {
+   //    // setPosition(map.getCenter())
+   //    console.log("map center OFF is", map?.getCenter())
+   // }, [map])
+
+   //todo On Move, adjust listings
+   // useEffect(() => {
+   //    map?.on('move', () => console.log("map center NOW is", map.getCenter()))
+   //    return () => {
+   //       map?.off('move', onMove)
+   //    }
+   // }, [map, onMove])
+
    return (
       <div className={classes.root}>
          <div className={classes.mapContainer}>
@@ -100,6 +126,7 @@ export default function ListingMapArea() {
                      scrollWheelZoom={true}
                      className={classes.mapContent}
                      zoomControl={false}
+                     whenCreated={setMap}
                   >
                      <div className={classes.controlRegion}>
                         {

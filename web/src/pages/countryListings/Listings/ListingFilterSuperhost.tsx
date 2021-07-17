@@ -46,9 +46,11 @@ export const ListingFilterSuperhost = (): JSX.Element => {
                setFilters({
                   ...filters,
                   query: {
-                     country: filters.query.country,
+                     ...filters.query,
+                     is_superhost: undefined
                   }
                })
+               if (query.has("page")) query.delete("page")
                if (query.has("superhost")) {
                   query.delete("superhost")
                   history.replace({
@@ -60,10 +62,11 @@ export const ListingFilterSuperhost = (): JSX.Element => {
                setFilters({
                   ...filters,
                   query: {
-                     country: filters.query.country,
+                     ...filters.query,
                      is_superhost: checked
                   }
                })
+               if (query.has("page")) query.delete("page")
                query.delete("superhost")
                query.append("superhost", checked.toString())
                history.replace({

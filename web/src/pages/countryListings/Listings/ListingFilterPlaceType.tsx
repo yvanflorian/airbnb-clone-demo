@@ -79,9 +79,11 @@ export const ListingFilterPlaceType = (props: PlaceTypeProps): JSX.Element => {
                setFilters({
                   ...filters,
                   query: {
-                     country: filters.query.country,
+                     ...filters.query,
+                     room_type: undefined
                   }
                })
+               if (query.has("page")) query.delete("page")
                if (query.has("rooms")) {
                   query.delete("rooms")
                   history.replace({
@@ -93,10 +95,11 @@ export const ListingFilterPlaceType = (props: PlaceTypeProps): JSX.Element => {
                setFilters({
                   ...filters,
                   query: {
-                     country: filters.query.country,
+                     ...filters.query,
                      room_type: { in: rooms }
                   }
                })
+               if (query.has("page")) query.delete("page")
                query.delete("rooms")
                query.append("rooms", rooms.join("+"))
                history.replace({
