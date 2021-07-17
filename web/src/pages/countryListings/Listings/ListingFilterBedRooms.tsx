@@ -109,7 +109,6 @@ export const ListingFilterBedRooms = (): JSX.Element => {
    }
    //context & routing
    const handleSaveFilters = () => {
-      console.log("Saving BedRooms filter:")
       if (filters !== null && filters !== undefined) {
          if (beds === 0 && bedrooms === 0 && bathrooms === 0) {
             setFilters({

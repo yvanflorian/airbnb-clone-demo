@@ -151,11 +151,6 @@ export const CountryListingProvider: React.FC<React.ReactNode> = ({ children }) 
       COUNTRY_LISTINGS_Q, { variables: { param: filters } }
    )
 
-   console.log("Rooms Query:", query.get("rooms"))
-   console.log("Rooms Query Formatted:", query.get("rooms")?.split(","))
-
-
-
    return (
       <CountryListingContext.Provider value={{ loading, error, data, fullMap, setFullMap, filters, setFilters }}>
          {children}

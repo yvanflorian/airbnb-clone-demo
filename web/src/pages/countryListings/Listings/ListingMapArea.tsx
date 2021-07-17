@@ -2,11 +2,10 @@ import { useContext } from "react"
 import { MapContainer, TileLayer, Marker, Popup, Tooltip } from 'react-leaflet'
 import L from "leaflet"
 import clsx from "clsx"
-import { CountryListingContext } from "./../dataContext"
+import { CountryListingContext } from "../dataContext"
 import { IListing } from "../../../types/Listing"
 //mui-core
 import { makeStyles, Theme as AugmentedTheme, createStyles } from "@material-ui/core/styles"
-// import Button from "@material-ui/core/Button"
 import IconButton from "@material-ui/core/IconButton"
 import Typography from "@material-ui/core/Typography"
 import FormControlLabel from "@material-ui/core/FormControlLabel"
@@ -69,7 +68,7 @@ const useStyles = makeStyles((theme: AugmentedTheme) => createStyles({
 }))
 
 
-export default function MapArea() {
+export default function ListingMapArea() {
    const classes = useStyles()
    const { fullMap, setFullMap, data } = useContext(CountryListingContext)
 

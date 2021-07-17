@@ -73,7 +73,6 @@ export const ListingFilterPlaceType = (props: PlaceTypeProps): JSX.Element => {
    }
 
    const handleSaveFilters = () => {
-      console.log("Saving Filters!!!")
       if (filters !== null && filters !== undefined) {
          switch (rooms.length) {
             case 0:
