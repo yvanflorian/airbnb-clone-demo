@@ -108,6 +108,7 @@ export const ListingFilterPlaceType = (props: PlaceTypeProps): JSX.Element => {
                break;
          }
       }
+      setAnchorEl(null)
    }
    /**
     * Handle clicks away from the PopOver
@@ -130,7 +131,7 @@ export const ListingFilterPlaceType = (props: PlaceTypeProps): JSX.Element => {
          <Button
             variant="outlined"
             onClick={handleOpenPopOver}
-            className={buttonStyles.root}
+            className={query.has("rooms") ? buttonStyles.selected : buttonStyles.root}
          >
             <Typography>Type of Place</Typography>
          </Button>

@@ -48,13 +48,17 @@ export default function ListingFilters(props: BeforeListItemsProps) {
          {mobile ?
             <div className={classes.filterButtonsRegion}>
                <div className={classes.filterButtonsContainer}>
-                  <Button size="small" variant="outlined" className={classes.filterButton}>More Filters</Button>
+                  <Button size="small" variant="outlined" className={classes.filterButton}>
+                     <Typography>More Filters</Typography>
+                  </Button>
                </div>
             </div>
             :
             <div className={classes.filterButtonsRegion}>
                <div className={classes.filterButtonsContainer}>
-                  <Button variant="outlined" className={classes.filterButton}>Prices</Button>
+                  <Button variant="outlined" className={classes.filterButton}>
+                     <Typography>Prices</Typography>
+                  </Button>
                </div>
                <div className={classes.filterButtonsContainer}>
                   <ListingFilterBedRooms />
@@ -68,7 +72,9 @@ export default function ListingFilters(props: BeforeListItemsProps) {
                   />
                </div>
                <div className={classes.filterButtonsContainer}>
-                  <Button variant="outlined" className={classes.filterButton}>More Filters</Button>
+                  <Button variant="outlined" className={classes.filterButton}>
+                     <Typography>More Filters</Typography>
+                  </Button>
                </div>
             </div>
          }

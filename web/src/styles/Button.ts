@@ -14,6 +14,14 @@ export const useSimpleFilterButton = makeStyles((theme: Theme) =>
         borderColor: "#222222 !important",
       },
     },
+    selected: {
+      border: "2px solid #000000",
+      borderRadius: "30px !important",
+      padding: "5px 15px",
+      "&:hover": {
+        borderColor: "#222222 !important",
+      },
+    },
   })
 )
 

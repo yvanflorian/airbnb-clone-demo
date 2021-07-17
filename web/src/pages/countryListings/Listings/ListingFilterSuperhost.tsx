@@ -75,6 +75,7 @@ export const ListingFilterSuperhost = (): JSX.Element => {
                break;
          }
       }
+      setAnchorEl(null)
    }
 
    const handleClosePopOver = () => {
@@ -86,8 +87,8 @@ export const ListingFilterSuperhost = (): JSX.Element => {
       <div>
          <Button
             variant="outlined"
-            className={buttonStyles.root}
             onClick={handleOpenPopOver}
+            className={query.has("superhost") ? buttonStyles.selected : buttonStyles.root}
          >
             <Typography>Super Host</Typography>
          </Button>

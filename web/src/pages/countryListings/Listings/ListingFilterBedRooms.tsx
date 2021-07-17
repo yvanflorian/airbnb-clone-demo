@@ -157,8 +157,8 @@ export const ListingFilterBedRooms = (): JSX.Element => {
       <div>
          <Button
             variant="outlined"
-            className={buttonStyles.root}
             onClick={handleOpenPopOver}
+            className={beds > 0 || bedrooms > 0 || bathrooms > 0 ? buttonStyles.selected : buttonStyles.root}
          >
             <Typography>Rooms and beds</Typography>
          </Button>
