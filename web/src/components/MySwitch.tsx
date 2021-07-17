@@ -31,8 +31,8 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
    },
    track: {
       borderRadius: 26 / 2,
-      border: `1px solid ${theme.palette.grey[400]}`,
-      backgroundColor: theme.palette.grey[50],
+      border: `0px solid ${theme.palette.grey[400]}`,
+      backgroundColor: theme.palette.grey[400],
       opacity: 1,
       transition: theme.transitions.create(['background-color', 'border']),
    },

@@ -1,5 +1,6 @@
 import { ListingFilterPlaceType } from "./ListingFilterPlaceType"
-import { ListingFilterSuperhost } from "./ListingFilterSuperhost";
+import { ListingFilterSuperhost } from "./ListingFilterSuperhost"
+import { ListingFilterBedRooms } from "./ListingFilterBedRooms"
 //mui-core
 import useMediaQuery from "@material-ui/core/useMediaQuery"
 import { createStyles, makeStyles, Theme, useTheme } from "@material-ui/core/styles"
@@ -56,7 +57,7 @@ export default function ListingFilters(props: BeforeListItemsProps) {
                   <Button variant="outlined" className={classes.filterButton}>Prices</Button>
                </div>
                <div className={classes.filterButtonsContainer}>
-                  <Button variant="outlined" className={classes.filterButton}>Rooms and beds</Button>
+                  <ListingFilterBedRooms />
                </div>
                <div className={classes.filterButtonsContainer}>
                   <ListingFilterSuperhost />

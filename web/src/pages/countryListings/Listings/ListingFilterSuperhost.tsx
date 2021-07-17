@@ -86,7 +86,7 @@ export const ListingFilterSuperhost = (): JSX.Element => {
             className={buttonStyles.root}
             onClick={handleOpenPopOver}
          >
-            <Typography>SuperHost</Typography>
+            <Typography>Super Host</Typography>
          </Button>
          <MyPopover
             id={id}
