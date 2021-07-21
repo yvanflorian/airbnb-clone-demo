@@ -78,7 +78,7 @@ export const fetchCountListing = async (q: IQGeneral): Promise<string> => {
 }
 
 const fetchListings = async (q: IQGeneral): Promise<IListingWithCount> => {
-  console.log("[Log] GQL Fetch one Country Related Listings", q)
+  console.log("[Log] GQL Fetch one Country Related Listings", JSON.stringify(q))
   try {
     const countries: IListing[] = await Listing.find(q.query)
       .limit(10)

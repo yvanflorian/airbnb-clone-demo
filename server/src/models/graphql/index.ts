@@ -125,6 +125,19 @@ export const typeDefs = gql`
   input qObjectIn {
     in: [String]
   }
+  input qCoordinates {
+    ne_lng: Float
+    ne_lat: Float
+    nw_lng: Float
+    nw_lat: Float
+    sw_lng: Float
+    sw_lat: Float
+    se_lng: Float
+    se_lat: Float
+  }
+  input qLocation {
+    coordinates: qCoordinates
+  }
   input qCountryObject {
     country: String!
     name: String
@@ -136,6 +149,7 @@ export const typeDefs = gql`
     room_type: qObjectIn
     is_superhost: Boolean
     amenities: qArrayMatch
+    location: qLocation
   }
   input qCountry {
     query: qCountryObject

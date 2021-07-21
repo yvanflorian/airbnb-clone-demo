@@ -44,6 +44,19 @@ interface IArrayFilter {
 interface IObjectIn {
    in: string[]
 }
+
+type gqlLocation = {
+   coordinates: {
+      ne_lng: number
+      ne_lat: number
+      nw_lng: number
+      nw_lat: number
+      sw_lng: number
+      sw_lat: number
+      se_lng: number
+      se_lat: number
+   }
+}
 export interface ICountryListingFilters {
    query: {
       country: string,
@@ -55,6 +68,7 @@ export interface ICountryListingFilters {
       room_type?: IObjectIn,
       is_superhost?: boolean,
       amenities?: IArrayFilter,
+      location?: gqlLocation
    },
    limit: number,
    skip: number

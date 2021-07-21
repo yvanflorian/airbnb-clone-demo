@@ -9,6 +9,18 @@ type gqlObjectIn = {
   in: string[]
 }
 
+type gqlLocation = {
+  coordinates: {
+    ne_lng: number
+    ne_lat: number
+    nw_lng: number
+    nw_lat: number
+    sw_lng: number
+    sw_lat: number
+    se_lng: number
+    se_lat: number
+  }
+}
 interface gqlQuery {
   country: string
   name?: string
@@ -20,6 +32,7 @@ interface gqlQuery {
   room_type?: gqlObjectIn
   is_superhost?: boolean
   amenities?: gqlArrayMatch
+  location?: gqlLocation
 }
 export interface gqlListing {
   query: gqlQuery
@@ -37,6 +50,14 @@ interface IArrayMatch {
 interface IObjectIn {
   $in: gqlObjectIn["in"]
 }
+interface ILocation {
+  $geoWithin: {
+    $geometry: {
+      type: string
+      coordinates: number[][][]
+    }
+  }
+}
 export interface IQObject {
   "address.country_code": gqlQuery["country"]
   name?: gqlQuery["name"]
@@ -48,6 +69,7 @@ export interface IQObject {
   room_type?: IObjectIn
   "host.host_is_superhost"?: gqlQuery["is_superhost"]
   amenities?: IArrayMatch
+  "address.location"?: ILocation
 }
 
 export interface IQGeneral {
@@ -70,6 +92,7 @@ export const keyChange = ({
   amenities,
   property_type,
   room_type,
+  location,
   ...remainder
 }: gqlQuery): IQObject => {
   const final: IQObject = {
@@ -85,6 +108,24 @@ export const keyChange = ({
   amenities ? (final.amenities = { $all: amenities.all }) : null
   property_type ? (final.property_type = { $in: property_type.in }) : null
   room_type ? (final.room_type = { $in: room_type.in }) : null
+  location
+    ? (final["address.location"] = {
+        $geoWithin: {
+          $geometry: {
+            type: "Polygon",
+            coordinates: [
+              [
+                [location.coordinates.ne_lng, location.coordinates.ne_lat],
+                [location.coordinates.nw_lng, location.coordinates.nw_lat],
+                [location.coordinates.sw_lng, location.coordinates.sw_lat],
+                [location.coordinates.se_lng, location.coordinates.se_lat],
+                [location.coordinates.ne_lng, location.coordinates.ne_lat],
+              ],
+            ],
+          },
+        },
+      })
+    : null
 
   return final
 }
