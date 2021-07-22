@@ -1,6 +1,6 @@
-import { useContext, useState, useEffect, useCallback, useRef } from "react"
+import { useContext, useRef } from "react"
 import { MapContainer, TileLayer, Marker, Popup, Tooltip } from 'react-leaflet'
-import L, { LatLngExpression, Map as LeafletMap } from "leaflet"
+import L from "leaflet"
 import clsx from "clsx"
 import { MapEvents, MapLoad } from "./MapEvents"
 import { CountryListingContext } from "../dataContext"
@@ -71,7 +71,7 @@ const useStyles = makeStyles((theme: AugmentedTheme) => createStyles({
 
 export default function ListingMapArea() {
    const classes = useStyles()
-   const { fullMap, setFullMap, data, filters, setFilters } = useContext(CountryListingContext)
+   const { fullMap, setFullMap, data } = useContext(CountryListingContext)
    // const ctx = useContext(CountryListingContext)
    // const setFiltersRef = useRef(useContext(CountryListingContext))
    // const [map, setMap] = useState<LeafletMap>()
@@ -80,6 +80,7 @@ export default function ListingMapArea() {
    //    data?.countryListings.listing[0].address.location.coordinates[0] || -0.09
    // ])
    const move: React.MutableRefObject<boolean> = useRef(true)
+   const loadCount: React.MutableRefObject<number> = useRef(0)//to center the map only the first time!
 
    //fake marker
    const icon: L.DivIcon = L.divIcon({
@@ -262,8 +263,8 @@ export default function ListingMapArea() {
                   </Marker>
                ))
                }
-               <MapLoad moveTrigger={move} />
-               <MapEvents moveTrigger={move} />
+               <MapLoad moveTrigger={move} loads={loadCount} />
+               <MapEvents moveTrigger={move} loads={loadCount} />
             </MapContainer>
             {/* : <div className={classes.textPlaceHolder}>
                      <Typography>Loading...</Typography>

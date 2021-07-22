@@ -5,10 +5,11 @@ import L from "leaflet"
 import { IListing } from "../../../types/Listing"
 import { CountryListingContext } from "../dataContext"
 
-interface MapLoadProps {
-   moveTrigger: React.MutableRefObject<boolean>
+interface MapEventProps {
+   moveTrigger: React.MutableRefObject<boolean>,
+   loads: React.MutableRefObject<number>
 }
-export const MapLoad = (props: MapLoadProps) => {
+export const MapLoad = (props: MapEventProps) => {
    const { data } = useContext(CountryListingContext)
    const map = useMap()
    props.moveTrigger.current = false
@@ -21,14 +22,19 @@ export const MapLoad = (props: MapLoadProps) => {
    })
    if (locations.length > 0) {
       let bounds = new L.LatLngBounds(locations)
-      // map?.fitBounds(bounds)
+      if (props.loads.current === 0) {
+         map?.fitBounds(bounds)
+         console.log("Map centered")
+      }
    }
    props.moveTrigger.current = true
    console.log("Loading complete! Move Trigger?", props.moveTrigger)
+   if (data !== null && data !== undefined) props.loads.current++
+   console.log("Loadcount", props.loads.current)
    return null
 }
 
-export const MapEvents = (props: MapLoadProps) => {
+export const MapEvents = (props: MapEventProps) => {
    const { filters, setFilters } = useContext(CountryListingContext)
    const map = useMapEvents({
       moveend: () => {
