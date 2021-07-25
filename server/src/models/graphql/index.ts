@@ -72,6 +72,16 @@ export const typeDefs = gql`
     host_total_listings_count: Int
     host_verifications: [String]
   }
+  type CountryLocation {
+    long_name: String
+    short_name: String
+    center_lat: String
+    center_lng: String
+    sw_lat: String
+    sw_lng: String
+    ne_lat: String
+    ne_lng: String
+  }
   type Listing {
     _id: String
     listing_url: String
@@ -126,6 +136,7 @@ export const typeDefs = gql`
   type ListingsWithCount {
     listing: [Listing]
     stays: String
+    countryLocation: CountryLocation
   }
   input qGreaterThan {
     gte: Int

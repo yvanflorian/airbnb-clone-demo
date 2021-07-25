@@ -1,4 +1,6 @@
+import { ICountryLocation } from "../mongoose/Country"
 import { IListing, Listing } from "../mongoose/Listing"
+import { fetchOneCountry } from "./Country"
 import { gqlListing, IQGeneral, keyChange } from "./ListingUtils"
 
 interface IAggregation {
@@ -15,6 +17,7 @@ interface ICountries {
 interface IListingWithCount {
   listing: IListing[]
   stays: string
+  countryLocation: ICountryLocation
 }
 /**
  * GQL Resolver to fetch only one Listing based on the ID
@@ -86,9 +89,13 @@ const fetchListings = async (q: IQGeneral): Promise<IListingWithCount> => {
       .limit(q.limit)
 
     const count: string = await fetchCountListing(q)
+    const countryLocation: ICountryLocation = await fetchOneCountry(
+      q.query["address.country_code"]
+    )
     return {
       listing: countries,
       stays: count,
+      countryLocation: countryLocation,
     }
   } catch (error) {
     console.error("GQL Fetch one country Error", error)
