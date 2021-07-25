@@ -4,6 +4,7 @@ import { GraphQLScalarType, Kind } from "graphql"
 import { merge } from "lodash"
 //
 import { ResolverMap } from "../../types/gqlResolver"
+import { fetchOneCountry } from "./Country"
 import {
   fetchCountryListing,
   fetchDistinctAmenities,
@@ -112,6 +113,16 @@ export const typeDefs = gql`
     availability: Availability
     review_scores: ReviewScore
   }
+  type countryLocation {
+    long_name: String
+    short_name: String
+    center_lat: String
+    center_lng: String
+    sw_lat: String
+    sw_lng: String
+    ne_lat: String
+    ne_lng: String
+  }
   type ListingsWithCount {
     listing: [Listing]
     stays: String
@@ -164,6 +175,7 @@ export const typeDefs = gql`
     amenities: [String]
     properties: [String]
     roomTypes: [String]
+    countryCentroid(country: String): countryLocation
   }
 `
 
@@ -195,6 +207,7 @@ const someResolvers: ResolverMap = {
     amenities: () => fetchDistinctAmenities(),
     properties: () => fetchDistinctPropertyTypes(),
     roomTypes: () => fetchDistinctRoomTypes(),
+    countryCentroid: (_, args) => fetchOneCountry(args.country),
   },
 }
 
