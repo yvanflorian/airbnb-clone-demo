@@ -26,11 +26,23 @@ interface IOneCountryParam {
       skip: number
    }
 }
+interface ICountryLocation {
+   long_name: string
+   short_name: string
+   center_lat: string
+   center_lng: string
+   sw_lat: string
+   sw_lng: string
+   ne_lat: string
+   ne_lng: string
+}
+
 
 interface ICountryListing {
    countryListings: {
       listing: IListing[],
-      stays: string
+      stays: string,
+      countryLocation: ICountryLocation
    },
    roomTypes: string[]
 }
@@ -102,6 +114,12 @@ const COUNTRY_LISTINGS_Q = gql`
             }
          }
          stays
+         countryLocation{
+            long_name
+            short_name
+            center_lat
+            center_lng
+         }
       }
       roomTypes
    }

@@ -106,3 +106,4 @@ dist
 #Custom MongoQuery and data sample File
 mongoQuery.ts
 sampleMongoListing.json
+countries_locations.json

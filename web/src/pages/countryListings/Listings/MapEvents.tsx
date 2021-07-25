@@ -7,7 +7,8 @@ import { CountryListingContext } from "../dataContext"
 
 interface MapEventProps {
    moveTrigger: React.MutableRefObject<boolean>,
-   loads: React.MutableRefObject<number>
+   loads: React.MutableRefObject<number>,
+   searchAsIMove?: boolean
 }
 export const MapLoad = (props: MapEventProps) => {
    const { data } = useContext(CountryListingContext)
@@ -38,28 +39,30 @@ export const MapEvents = (props: MapEventProps) => {
    const { filters, setFilters } = useContext(CountryListingContext)
    const map = useMapEvents({
       moveend: () => {
-         let bound = map.getBounds()
-         console.log("Move End Event captured: NE Point:", bound.getNorthEast())
-         if (filters !== null && filters !== undefined && props.moveTrigger.current) {
-            console.log("change filters")
-            setFilters({
-               ...filters,
-               query: {
-                  ...filters.query,
-                  location: {
-                     coordinates: {
-                        ne_lng: bound.getNorthEast().lng,
-                        ne_lat: bound.getNorthEast().lat,
-                        nw_lng: bound.getNorthWest().lng,
-                        nw_lat: bound.getNorthWest().lat,
-                        sw_lng: bound.getSouthWest().lng,
-                        sw_lat: bound.getSouthWest().lat,
-                        se_lng: bound.getSouthEast().lng,
-                        se_lat: bound.getSouthEast().lat
+         if (props.searchAsIMove) {
+            let bound = map.getBounds()
+            console.log("Move End Event captured: NE Point:", bound.getNorthEast())
+            if (filters !== null && filters !== undefined && props.moveTrigger.current) {
+               console.log("change filters")
+               setFilters({
+                  ...filters,
+                  query: {
+                     ...filters.query,
+                     location: {
+                        coordinates: {
+                           ne_lng: bound.getNorthEast().lng,
+                           ne_lat: bound.getNorthEast().lat,
+                           nw_lng: bound.getNorthWest().lng,
+                           nw_lat: bound.getNorthWest().lat,
+                           sw_lng: bound.getSouthWest().lng,
+                           sw_lat: bound.getSouthWest().lat,
+                           se_lng: bound.getSouthEast().lng,
+                           se_lat: bound.getSouthEast().lat
+                        }
                      }
                   }
-               }
-            })
+               })
+            }
          }
       },
    })
