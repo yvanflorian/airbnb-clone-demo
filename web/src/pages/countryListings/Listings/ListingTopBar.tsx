@@ -55,7 +55,9 @@ export const ListingTopBar = (): JSX.Element => {
                   size="small"
                   startIcon={<KeyboardArrowLeftIcon />}
                >
-                  {data?.countryListings.listing[0].address.country}
+                  {data !== undefined && data !== null && data.countryListings.listing.length > 0 ?
+                     data?.countryListings.listing[0].address.country
+                     : "No Result"}
                </Button>
             </MyLink>
             <ButtonGroup variant="text" >

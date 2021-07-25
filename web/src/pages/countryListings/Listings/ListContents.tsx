@@ -56,7 +56,7 @@ export default function ListingContents() {
             <Grid item xs={12} className={classes.gridItem}>
                <ListingFilters
                   // staysInPlace={data?.countryListings[0].address.country}
-                  staysInPlace={data?.countryListings.listing[0].address.country}
+                  staysInPlace={data?.countryListings?.listing[0]?.address.country}
                   countStays={data?.countryListings.stays || ""}
                   roomTypes={data?.roomTypes}
                />
