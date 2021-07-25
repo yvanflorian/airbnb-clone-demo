@@ -50,10 +50,23 @@ export const ListingPagination = (props: IListingPaginationProps): JSX.Element =
       }
    }
 
-   return (
+   const staysCount: number = (Number(props.stays.replace("+", "")))
+
+   const noReturn =
+      <div className={classes.root}>
+         <Typography>No Results</Typography>
+      </div>
+
+   const less20 =
+      <div className={classes.root}>
+         <Typography variant="body2">{`1 – ${staysCount} of ${staysCount} places to stay`}</Typography>
+         <Typography variant="caption">Enter dates to see full pricing. Additional fees apply. Taxes may be added.</Typography>
+      </div>
+
+   const more20 =
       <div className={classes.root}>
          <Pagination
-            count={Math.round(Number(props.stays.replace("+", "")) / 20)}
+            count={Math.round(staysCount / 20)}
             onChange={handlechange}
             page={page}
          />
@@ -65,5 +78,8 @@ export const ListingPagination = (props: IListingPaginationProps): JSX.Element =
 
          </div>
       </div>
-   )
+
+   if (staysCount === 0) return noReturn
+   if (staysCount > 0 && staysCount <= 20) return less20
+   else return more20
 }
