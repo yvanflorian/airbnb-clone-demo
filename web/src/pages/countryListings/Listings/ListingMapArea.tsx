@@ -2,19 +2,20 @@ import { useContext, useRef, useState } from "react"
 import { MapContainer, TileLayer, Marker, Popup, Tooltip } from 'react-leaflet'
 import L from "leaflet"
 import clsx from "clsx"
+//mine
 import { MapEvents, MapLoad } from "./MapEvents"
 import { CountryListingContext } from "../dataContext"
 import { IListing } from "../../../types/Listing"
+import { MyLoadingButton } from "./../../../components/MyLoadingButton"
 //mui-core
-import { makeStyles, Theme as AugmentedTheme, createStyles } from "@material-ui/core/styles"
+import { makeStyles, Theme as AugmentedTheme, createStyles, useTheme } from "@material-ui/core/styles"
+import useMediaQuery from "@material-ui/core/useMediaQuery"
 import IconButton from "@material-ui/core/IconButton"
 import Typography from "@material-ui/core/Typography"
 import FormControlLabel from "@material-ui/core/FormControlLabel"
 import Checkbox from "@material-ui/core/Checkbox"
 import ButtonGroup from "@material-ui/core/ButtonGroup"
 import Button from "@material-ui/core/Button"
-import LinearProgress from "@material-ui/core/LinearProgress"
-import Paper from "@material-ui/core/Paper"
 //mui-icons
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
 import ChevronRightIcon from "@material-ui/icons/ChevronRight"
@@ -22,6 +23,7 @@ import AddIcon from '@material-ui/icons/Add'
 import RemoveIcon from '@material-ui/icons/Remove'
 import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank'
 import CheckBoxIcon from '@material-ui/icons/CheckBox'
+import CloseIcon from '@material-ui/icons/Close'
 
 
 const useStyles = makeStyles((theme: AugmentedTheme) => createStyles({
@@ -30,6 +32,14 @@ const useStyles = makeStyles((theme: AugmentedTheme) => createStyles({
       height: "100vh",
       //adding the height of the toolbar plus few pixels
       top: `calc(${theme.mixins.toolbar.minHeight}px + ${theme.spacing(1)}px)`
+   },
+   mapRegionLoading: {
+      height: "100vh",
+      padding: theme.spacing(2),
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "flex-start",
+      backgroundColor: "#e8e8e8",
    },
    controlRegion: {
       padding: theme.spacing(2),
@@ -68,26 +78,6 @@ const useStyles = makeStyles((theme: AugmentedTheme) => createStyles({
    mapPrice: {
       fontWeight: 700
    },
-   mapLoadingContainer: {
-      minWidth: "50px",
-      zIndex: 10000,
-   },
-   mapLoadingPaper: {
-      height: theme.spacing(4),
-      display: "flex",
-      flexDirection: "column",
-      justifyContent: "center",
-      borderRadius: "20%"
-   },
-   mapLoadingLinear: {
-      margin: "0 10px 0 10px"
-   },
-   barColorPrimary: {
-      backgroundColor: "#fff"
-   },
-   primary: {
-      backgroundColor: "#000"
-   }
 }))
 
 interface IMapCenter {
@@ -96,6 +86,8 @@ interface IMapCenter {
 }
 export default function ListingMapArea() {
    const classes = useStyles()
+   const theme = useTheme()
+   const smallScreen: Boolean = useMediaQuery(theme.breakpoints.down("md"))
    const { fullMap, setFullMap, data, loading } = useContext(CountryListingContext)
    const move: React.MutableRefObject<boolean> = useRef(true)
    const loadCount: React.MutableRefObject<number> = useRef(0)//to center the map only the first time!
@@ -145,7 +137,7 @@ export default function ListingMapArea() {
                               <Button
                                  className={clsx(classes.fullmapButton, classes.showListButton)}
                                  size="small"
-                                 startIcon={<ChevronRightIcon />}
+                                 startIcon={smallScreen ? <CloseIcon /> : <ChevronRightIcon />}
                                  onClick={toggleFullMap}
                               >
                                  <Typography variant="caption">Show List</Typography>
@@ -160,18 +152,12 @@ export default function ListingMapArea() {
                         }
                         {
                            loading ?
-                              <div className={classes.mapLoadingContainer}>
-                                 <Paper className={classes.mapLoadingPaper}>
-                                    <LinearProgress
-                                       color="primary"
-                                       className={classes.mapLoadingLinear}
-                                       classes={{
-                                          colorPrimary: classes.barColorPrimary,
-                                          barColorPrimary: classes.primary
-                                       }}
-                                    />
-                                 </Paper>
-                              </div>
+                              // <div className={classes.mapLoadingContainer}>
+                              //    <Paper className={classes.mapLoadingPaper}>
+                              //       <MyLinearProgress />
+                              //    </Paper>
+                              // </div>
+                              <MyLoadingButton />
                               :
                               <FormControlLabel
                                  control={
@@ -228,8 +214,9 @@ export default function ListingMapArea() {
                         searchAsIMove={searchMap}
                      />
                   </MapContainer>
-                  : <div className={classes.textPlaceHolder}>
-                     <Typography>Loading...</Typography>
+                  :
+                  <div className={classes.mapRegionLoading}>
+                     <MyLoadingButton />
                   </div>
             }
          </div>

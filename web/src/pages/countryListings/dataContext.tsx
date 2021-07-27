@@ -174,6 +174,21 @@ export const CountryListingProvider: React.FC<React.ReactNode> = ({ children }) 
    if (rooms !== null) initFilters.query.room_type = { in: rooms.split("+") }
 
    if (query.has("superhost")) initFilters.query.is_superhost = Boolean(query.get("superhost"))
+   if (query.has("ne_lng")) {
+      initFilters.query.location = {
+         coordinates: {
+            ne_lng: Number(query.get("ne_lng")),
+            ne_lat: Number(query.get("ne_lat")),
+            nw_lng: Number(query.get("nw_lng")),
+            nw_lat: Number(query.get("nw_lat")),
+            sw_lng: Number(query.get("sw_lng")),
+            sw_lat: Number(query.get("sw_lat")),
+            se_lng: Number(query.get("se_lng")),
+            se_lat: Number(query.get("se_lat"))
+         }
+      }
+
+   }
 
 
    const [filters, setFilters] = useState<ICountryListingFilters>(initFilters)

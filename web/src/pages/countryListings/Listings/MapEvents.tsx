@@ -1,15 +1,22 @@
 import { useContext } from "react"
 import { useMapEvents, useMap } from "react-leaflet"
 import L from "leaflet"
+import { useHistory } from "react-router-dom"
 
 import { IListing } from "../../../types/Listing"
-import { CountryListingContext } from "../dataContext"
+import { CountryListingContext, useRouterQuery } from "../dataContext"
 
 interface MapEventProps {
    moveTrigger: React.MutableRefObject<boolean>,
    loads: React.MutableRefObject<number>,
    searchAsIMove?: boolean
 }
+/**
+ * Runs when the Map Loads
+ * 
+ * @param props 
+ * @returns 
+ */
 export const MapLoad = (props: MapEventProps) => {
    const { data } = useContext(CountryListingContext)
    const map = useMap()
@@ -35,32 +42,61 @@ export const MapLoad = (props: MapEventProps) => {
    return null
 }
 
+/**
+ * Contains the onMove Event in the map (which will refine the search)
+ * @param props 
+ * @returns 
+ */
 export const MapEvents = (props: MapEventProps) => {
    const { filters, setFilters } = useContext(CountryListingContext)
+   let history = useHistory()
+   let query = useRouterQuery()
+
    const map = useMapEvents({
       moveend: () => {
          if (props.searchAsIMove) {
             let bound = map.getBounds()
+            let boundPosition = {
+               ne_lng: bound.getNorthEast().lng,
+               ne_lat: bound.getNorthEast().lat,
+               nw_lng: bound.getNorthWest().lng,
+               nw_lat: bound.getNorthWest().lat,
+               sw_lng: bound.getSouthWest().lng,
+               sw_lat: bound.getSouthWest().lat,
+               se_lng: bound.getSouthEast().lng,
+               se_lat: bound.getSouthEast().lat
+            }
             console.log("Move End Event captured: NE Point:", bound.getNorthEast())
             if (filters !== null && filters !== undefined && props.moveTrigger.current) {
                console.log("change filters")
+               if (query.has("ne_lng")) query.delete("ne_lng")
+               if (query.has("ne_lat")) query.delete("ne_lat")
+               if (query.has("nw_lng")) query.delete("nw_lng")
+               if (query.has("nw_lat")) query.delete("nw_lat")
+               if (query.has("sw_lng")) query.delete("sw_lng")
+               if (query.has("sw_lat")) query.delete("sw_lat")
+               if (query.has("se_lng")) query.delete("se_lng")
+               if (query.has("se_lat")) query.delete("se_lat")
+               query.append("ne_lng", boundPosition.ne_lng.toString())
+               query.append("ne_lat", boundPosition.ne_lat.toString())
+               query.append("nw_lng", boundPosition.nw_lng.toString())
+               query.append("nw_lat", boundPosition.nw_lat.toString())
+               query.append("sw_lng", boundPosition.sw_lng.toString())
+               query.append("sw_lat", boundPosition.sw_lat.toString())
+               query.append("se_lng", boundPosition.se_lng.toString())
+               query.append("se_lat", boundPosition.se_lat.toString())
+
                setFilters({
                   ...filters,
                   query: {
                      ...filters.query,
                      location: {
-                        coordinates: {
-                           ne_lng: bound.getNorthEast().lng,
-                           ne_lat: bound.getNorthEast().lat,
-                           nw_lng: bound.getNorthWest().lng,
-                           nw_lat: bound.getNorthWest().lat,
-                           sw_lng: bound.getSouthWest().lng,
-                           sw_lat: bound.getSouthWest().lat,
-                           se_lng: bound.getSouthEast().lng,
-                           se_lat: bound.getSouthEast().lat
-                        }
+                        coordinates: boundPosition
                      }
                   }
+               })
+               history.replace({
+                  search: query.toString()
                })
             }
          }
