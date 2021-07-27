@@ -52,13 +52,16 @@ export default function Listings() {
             >
                <ListingContents />
             </Grid>
-            <Grid
-               item
-               lg={5}
-               xs={12}
-            >
-               <ListingMapArea />
-            </Grid>
+            {mobile ? null
+               :
+               <Grid
+                  item
+                  lg={5}
+                  xs={12}
+               >
+                  <ListingMapArea />
+               </Grid>
+            }
          </Grid>
          <Fab
             aria-label="add"

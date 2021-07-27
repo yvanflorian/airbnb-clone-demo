@@ -161,7 +161,7 @@ export const CountryListingContext = createContext(defaultValue)
 
 export const CountryListingProvider: React.FC<React.ReactNode> = ({ children }) => {
    const match = useParams<IURLParam>()
-   const [fullMap, setFullMap] = useState(false)
+   const [fullMap, setFullMap] = useState<boolean>(false)
    let query = useRouterQuery()
    const initFilters: ICountryListingFilters = {
       query: {
@@ -187,7 +187,8 @@ export const CountryListingProvider: React.FC<React.ReactNode> = ({ children }) 
             se_lat: Number(query.get("se_lat"))
          }
       }
-
+      if (query.has("mapselect")) query.delete("mapselect")
+      query.append("mapselect", "true")
    }
 
 

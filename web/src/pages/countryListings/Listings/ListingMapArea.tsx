@@ -56,13 +56,18 @@ const useStyles = makeStyles((theme: AugmentedTheme) => createStyles({
       "&:hover": {
          backgroundColor: '#fff'
       },
-      borderRadius: "unset !important"
+      borderRadius: "8%"
    },
    showListButton: {
       textTransform: "none"
    },
    mapZoomCustomBtn: {
-      padding: "3px 3px"
+      padding: "3px 3px",
+      borderRadius: "20%",
+      boxShadow: "#0000001f 0px 6px 16px"
+   },
+   group: {
+      height: theme.spacing(5)
    },
    textPlaceHolder: {
       height: "100vh",
@@ -140,7 +145,7 @@ export default function ListingMapArea() {
                                  startIcon={smallScreen ? <CloseIcon /> : <ChevronRightIcon />}
                                  onClick={toggleFullMap}
                               >
-                                 <Typography variant="caption">Show List</Typography>
+                                 {smallScreen ? null : <Typography variant="caption">Show List</Typography>}
                               </Button>
                               : <IconButton
                                  size="small"
@@ -152,11 +157,6 @@ export default function ListingMapArea() {
                         }
                         {
                            loading ?
-                              // <div className={classes.mapLoadingContainer}>
-                              //    <Paper className={classes.mapLoadingPaper}>
-                              //       <MyLinearProgress />
-                              //    </Paper>
-                              // </div>
                               <MyLoadingButton />
                               :
                               <FormControlLabel
@@ -178,6 +178,9 @@ export default function ListingMapArea() {
                         <ButtonGroup
                            orientation="vertical"
                            aria-label="Custom Zoom controls"
+                           classes={{
+                              grouped: classes.group
+                           }}
                         >
                            <Button className={clsx(classes.fullmapButton, classes.mapZoomCustomBtn)} size="small">
                               <AddIcon />

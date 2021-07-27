@@ -1,6 +1,6 @@
 import { useContext } from "react"
 import { IListing } from "./../../../types/Listing"
-import { CountryListingContext } from "./../dataContext"
+import { CountryListingContext, useRouterQuery } from "./../dataContext"
 import ListingFilters from "./ListingFilters"
 import ListingDescription from "./ListingDescription"
 import ListingImage from "./ListingImage"
@@ -27,6 +27,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 export default function ListingContents() {
    const classes = useStyles()
    const { error, data, loading } = useContext(CountryListingContext)
+   let query = useRouterQuery()
 
 
    const isLoading =
@@ -56,7 +57,7 @@ export default function ListingContents() {
             <Grid item xs={12} className={classes.gridItem}>
                <ListingFilters
                   // staysInPlace={data?.countryListings[0].address.country}
-                  staysInPlace={data?.countryListings?.listing[0]?.address.country}
+                  staysInPlace={query.has("mapselect") && Boolean(query.get("mapselect")) ? "selected map area" : data?.countryListings?.listing[0]?.address.country}
                   countStays={data?.countryListings.stays || ""}
                   roomTypes={data?.roomTypes}
                />

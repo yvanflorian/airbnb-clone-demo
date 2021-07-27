@@ -86,6 +86,9 @@ export const MapEvents = (props: MapEventProps) => {
                query.append("se_lng", boundPosition.se_lng.toString())
                query.append("se_lat", boundPosition.se_lat.toString())
 
+               if (query.has("mapselect")) query.delete("mapselect")
+               query.append("mapselect", "true")
+
                setFilters({
                   ...filters,
                   query: {
