@@ -1,12 +1,12 @@
 import { useContext, useRef, useState } from "react"
-import { MapContainer, TileLayer, Marker, Popup, Tooltip } from 'react-leaflet'
-import L from "leaflet"
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import clsx from "clsx"
 //mine
 import { MapEvents, MapLoad } from "./MapEvents"
 import { CountryListingContext } from "../dataContext"
 import { IListing } from "../../../types/Listing"
 import { MyLoadingButton } from "./../../../components/MyLoadingButton"
+import { MapIcon } from "./../../../components/MapIcon"
 //mui-core
 import { makeStyles, Theme as AugmentedTheme, createStyles, useTheme } from "@material-ui/core/styles"
 import useMediaQuery from "@material-ui/core/useMediaQuery"
@@ -82,13 +82,15 @@ const useStyles = makeStyles((theme: AugmentedTheme) => createStyles({
    },
    mapPrice: {
       fontWeight: 700
-   },
+   }
 }))
 
 interface IMapCenter {
    lat: number,
    lng: number
 }
+
+
 export default function ListingMapArea() {
    const classes = useStyles()
    const theme = useTheme()
@@ -106,13 +108,7 @@ export default function ListingMapArea() {
          lng: Number(data.countryListings.countryLocation.center_lng)
       })
    }
-   //fake marker
-   const icon: L.DivIcon = L.divIcon({
-      className: "custom",
-      iconSize: [30, 30],
-      iconAnchor: [0, 0],
-      popupAnchor: [15, 0]
-   })
+
 
 
    const toggleFullMap = () => {
@@ -199,14 +195,14 @@ export default function ListingMapArea() {
                            oneListing.address.location.coordinates[1],
                            oneListing.address.location.coordinates[0]
                         ]} key={oneListing._id}
-                           icon={icon}
+                           icon={MapIcon({price: oneListing.price})}
                         >
                            <Popup>
                               {oneListing.name}
                            </Popup>
-                           <Tooltip direction="bottom" offset={[0, 20]} opacity={1} permanent>
+                           {/* <Tooltip direction="bottom" offset={[0, 20]} opacity={1} permanent>
                               <Typography variant="caption" className={classes.mapPrice}>{`$${oneListing.price}`}</Typography>
-                           </Tooltip>
+                           </Tooltip> */}
                         </Marker>
                      ))
                      }

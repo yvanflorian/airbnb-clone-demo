@@ -27,7 +27,7 @@ export interface IListing {
   number_of_reviews: Number
   bathroms: Number
   amenities: [string]
-  price: Number
+  price: number
   weekly_price: Number
   monthly_price: Number
   cleaning_fee: Number
