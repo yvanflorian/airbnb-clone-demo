@@ -1,4 +1,4 @@
-import { useContext, useRef, useState } from "react"
+import { useContext, useEffect, useRef, useState } from "react"
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import clsx from "clsx"
 //mine
@@ -7,6 +7,7 @@ import { CountryListingContext } from "../dataContext"
 import { IListing } from "../../../types/Listing"
 import { MyLoadingButton } from "./../../../components/MyLoadingButton"
 import { MapIcon } from "./../../../components/MapIcon"
+import { ListingMapCard } from "./ListingMapCard"
 //mui-core
 import { makeStyles, Theme as AugmentedTheme, createStyles, useTheme } from "@material-ui/core/styles"
 import useMediaQuery from "@material-ui/core/useMediaQuery"
@@ -102,12 +103,19 @@ export default function ListingMapArea() {
    const [center, setCenter] = useState<IMapCenter | undefined>()
    const [searchMap, setSearchMap] = useState<boolean>(true)
 
+   const [localData, setLocalData] = useState(data)
+
    if (data !== null && data !== undefined && center === undefined) {
       setCenter({
          lat: Number(data.countryListings.countryLocation.center_lat),
          lng: Number(data.countryListings.countryLocation.center_lng)
       })
    }
+
+   //only reload markers once we successfully fetch a new set of data
+   useEffect(() => {
+      if (data) setLocalData(data)
+   }, [setLocalData, data])
 
 
 
@@ -190,19 +198,19 @@ export default function ListingMapArea() {
                         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                      />
-                     {data?.countryListings.listing.map((oneListing: IListing) => (
+                     {localData?.countryListings.listing.map((oneListing: IListing) => (
                         <Marker position={[
                            oneListing.address.location.coordinates[1],
                            oneListing.address.location.coordinates[0]
                         ]} key={oneListing._id}
-                           icon={MapIcon({price: oneListing.price})}
+                           icon={MapIcon({ price: oneListing.price })}
                         >
-                           <Popup>
-                              {oneListing.name}
+                           <Popup
+                           >
+                              <ListingMapCard
+                                 data={oneListing}
+                              />
                            </Popup>
-                           {/* <Tooltip direction="bottom" offset={[0, 20]} opacity={1} permanent>
-                              <Typography variant="caption" className={classes.mapPrice}>{`$${oneListing.price}`}</Typography>
-                           </Tooltip> */}
                         </Marker>
                      ))
                      }

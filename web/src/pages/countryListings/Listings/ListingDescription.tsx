@@ -36,7 +36,8 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
       textOverflow: "ellipsis",
       overflow: "hidden"
    },
-   listingName: {
+   blackText: {
+      color: "#000"
    },
    divider: {
       borderTop: "1px solid #DDDDDD !important",
@@ -131,7 +132,11 @@ export const ListingDescription = (props: ListingDescriptionProps): JSX.Element 
                   >
                      {`Entire ${props.listing.property_type} in ${props.listing.address.suburb}`}
                   </Typography>
-                  <Typography className={clsx(classes.listingName, classes.textDescription)}>{props.listing.name}</Typography>
+                  <Typography
+                     className={clsx(classes.blackText, classes.textDescription)}
+                  >
+                     {props.listing.name}
+                  </Typography>
                </div>
                <div>
                   <IconButton>
@@ -160,15 +165,19 @@ export const ListingDescription = (props: ListingDescriptionProps): JSX.Element 
                      <IconButton color="primary" className={classes.reviewStar} size="small">
                         <StarIcon />
                      </IconButton>
-                     <Typography className={classes.reviewAmount}>{Math.round((Number(props.listing.review_scores.review_scores_rating) * 0.05) * 100) / 100} </Typography>
+                     <Typography
+                        className={clsx(classes.reviewAmount, classes.blackText)}
+                     >
+                        {Math.round((Number(props.listing.review_scores.review_scores_rating) * 0.05) * 100) / 100}
+                     </Typography>
                      <Typography variant="body2">({props.listing.number_of_reviews} reviews)</Typography>
                   </div>
                   : null
                }
             </div>
             <div className={classes.reviewAmountText}>
-               <Typography className={classes.reviewAmount}>{`$${props.listing.price}`}</Typography>
-               <Typography > / night</Typography>
+               <Typography className={clsx(classes.reviewAmount, classes.blackText)}>{`$${props.listing.price}`}</Typography>
+               <Typography className={classes.blackText}> / night</Typography>
             </div>
          </div>
       </div>

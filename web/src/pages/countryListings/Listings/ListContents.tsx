@@ -5,6 +5,7 @@ import ListingFilters from "./ListingFilters"
 import { ListingDescription, ListingTextSkeleton } from "./ListingDescription"
 import { ListingImage, ListingImageSkeleton } from "./ListingImage"
 import { ListingPagination } from "./ListingPagination"
+import MyLink from "./../../../components/MyLink"
 //mui-core
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles"
 import Grid from "@material-ui/core/Grid"
@@ -75,17 +76,23 @@ export default function ListingContents() {
                   </Grid>
                ))
                : data?.countryListings.listing.map((oneListing: IListing) => (
-                  <Grid item xs={12}
-                     className={classes.gridItem}
-                     key={oneListing._id}
+                  <MyLink to={{
+                     pathname: `${oneListing.listing_url}`
+                  }}
+                     target="_blank"
                   >
-                     <ListingImage
-                        listing={oneListing}
-                     />
-                     <ListingDescription
-                        listing={oneListing}
-                     />
-                  </Grid>
+                     <Grid item xs={12}
+                        className={classes.gridItem}
+                        key={oneListing._id}
+                     >
+                        <ListingImage
+                           listing={oneListing}
+                        />
+                        <ListingDescription
+                           listing={oneListing}
+                        />
+                     </Grid>
+                  </MyLink>
                ))}
             <Grid item xs={12}>
                <ListingPagination

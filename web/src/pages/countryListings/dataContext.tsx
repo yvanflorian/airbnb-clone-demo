@@ -91,6 +91,7 @@ const COUNTRY_LISTINGS_Q = gql`
       countryListings(q: $param){
          listing{
             _id
+            listing_url
             images{
                picture_url
             }

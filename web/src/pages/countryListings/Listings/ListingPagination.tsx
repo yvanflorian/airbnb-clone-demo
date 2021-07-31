@@ -69,6 +69,10 @@ export const ListingPagination = (props: IListingPaginationProps): JSX.Element =
       <div className={classes.root}>
          <Typography>No Results</Typography>
       </div>
+   const isLoading =
+      <div className={classes.root}>
+         <Typography>Loading...</Typography>
+      </div>
 
    const less20 =
       <div className={classes.root}>
@@ -92,7 +96,9 @@ export const ListingPagination = (props: IListingPaginationProps): JSX.Element =
          </div>
       </div>
 
-   if (staysCount === 0) return noReturn
+   if (staysCount === 0) {
+      return (props.loading ? isLoading : noReturn)
+   }
    if (staysCount > 0 && staysCount <= 20) return less20
    else return more20
 }
