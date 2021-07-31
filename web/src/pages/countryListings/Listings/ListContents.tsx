@@ -60,7 +60,7 @@ export default function ListingContents() {
             <Grid item xs={12} className={classes.gridItem}>
                <ListingFilters
                   staysInPlace={query.has("mapselect") && Boolean(query.get("mapselect")) ? "selected map area" : data?.countryListings?.listing[0]?.address.country}
-                  countStays={data?.countryListings.stays || ""}
+                  countStays={data?.countryListings.stays || "0"}
                   roomTypes={data?.roomTypes}
                />
             </Grid>
@@ -90,6 +90,7 @@ export default function ListingContents() {
             <Grid item xs={12}>
                <ListingPagination
                   stays={data?.countryListings.stays || "0"}
+                  loading={loading}
                />
             </Grid>
          </Grid>

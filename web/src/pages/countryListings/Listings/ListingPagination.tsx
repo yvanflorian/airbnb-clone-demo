@@ -1,4 +1,4 @@
-import { useContext, useState } from "react"
+import { useContext, useState, useEffect } from "react"
 import { useHistory } from "react-router-dom"
 import { CountryListingContext, useRouterQuery } from "../dataContext"
 //mui-core
@@ -22,7 +22,14 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 
 interface IListingPaginationProps {
    stays: string
+   loading: boolean
 }
+
+/**
+ * Listing Pagination
+ * @param props 
+ * @returns 
+ */
 export const ListingPagination = (props: IListingPaginationProps): JSX.Element => {
    //styles
    const classes = useStyles()
@@ -31,6 +38,11 @@ export const ListingPagination = (props: IListingPaginationProps): JSX.Element =
    let query = useRouterQuery()
    const { filters, setFilters } = useContext(CountryListingContext)
    const [page, setPage] = useState<number>(Number(query.get("page")) || 1)
+   const [staysCount, setStaysCount] = useState<number>(Number(props.stays.replace("+", "")))
+
+   useEffect(() => {
+      if (!props.loading) setStaysCount(Number(props.stays.replace("+", "")))
+   }, [props.stays, props.loading, setStaysCount])
 
    const handlechange = (event: object, page: number) => {
       if (filters !== null && filters !== undefined) {
@@ -50,7 +62,8 @@ export const ListingPagination = (props: IListingPaginationProps): JSX.Element =
       }
    }
 
-   const staysCount: number = (Number(props.stays.replace("+", "")))
+   // const staysCount: number = (Number(props.stays.replace("+", "")))
+   // const staysCount: number = stays
 
    const noReturn =
       <div className={classes.root}>

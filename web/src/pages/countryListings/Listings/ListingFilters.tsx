@@ -1,3 +1,5 @@
+import { useState, useEffect } from "react"
+
 import { ListingFilterPlaceType } from "./ListingFilterPlaceType"
 import { ListingFilterSuperhost } from "./ListingFilterSuperhost"
 import { ListingFilterBedRooms } from "./ListingFilterBedRooms"
@@ -39,10 +41,16 @@ export default function ListingFilters(props: BeforeListItemsProps) {
    const classes = useStyles()
    const theme = useTheme()
    const mobile: Boolean = useMediaQuery(theme.breakpoints.down("sm"))
+   const [stays, setStays] = useState<string>(props.countStays)
+
+   //only visibly change the count of stays after fetch
+   useEffect(() => {
+      if (props.countStays !== "0") setStays(props.countStays)
+   }, [props.countStays, setStays])
 
    return (
       <div>
-         <Typography variant="subtitle1">{`${props.countStays} stays`}</Typography>
+         <Typography variant="subtitle1">{`${stays} stays`}</Typography>
          <Typography variant="h4"> Stays in {props.staysInPlace}</Typography>
 
          {mobile ?
