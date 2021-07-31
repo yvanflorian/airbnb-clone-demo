@@ -22,7 +22,7 @@ export const MapLoad = (props: MapEventProps) => {
    const map = useMap()
    props.moveTrigger.current = false
 
-   console.log("Loaded! Move Trigger?", props.moveTrigger)
+   // console.log("Loaded! Move Trigger?", props.moveTrigger)
    let locations: [number, number][] = []
    data?.countryListings.listing.map((listing: IListing) => {
       locations.push([listing.address.location.coordinates[1], listing.address.location.coordinates[0]])
@@ -32,13 +32,13 @@ export const MapLoad = (props: MapEventProps) => {
       let bounds = new L.LatLngBounds(locations)
       if (props.loads.current === 0) {
          map?.fitBounds(bounds)
-         console.log("Map centered")
+         // console.log("Map centered")
       }
    }
    props.moveTrigger.current = true
-   console.log("Loading complete! Move Trigger?", props.moveTrigger)
+   // console.log("Loading complete! Move Trigger?", props.moveTrigger)
    if (data !== null && data !== undefined) props.loads.current++
-   console.log("Loadcount", props.loads.current)
+   // console.log("Loadcount", props.loads.current)
    return null
 }
 
@@ -66,9 +66,9 @@ export const MapEvents = (props: MapEventProps) => {
                se_lng: bound.getSouthEast().lng,
                se_lat: bound.getSouthEast().lat
             }
-            console.log("Move End Event captured: NE Point:", bound.getNorthEast())
+            // console.log("Move End Event captured: NE Point:", bound.getNorthEast())
             if (filters !== null && filters !== undefined && props.moveTrigger.current) {
-               console.log("change filters")
+               // console.log("change filters")
                if (query.has("ne_lng")) query.delete("ne_lng")
                if (query.has("ne_lat")) query.delete("ne_lat")
                if (query.has("nw_lng")) query.delete("nw_lng")

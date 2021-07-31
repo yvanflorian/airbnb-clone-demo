@@ -33,7 +33,6 @@ const baretheme: Theme = createMuiTheme({
   },
   palette: {
     primary: {
-      // main: colors.blue[700]
       main: "#3ea7d4",
     },
     neutral: {
@@ -55,11 +54,7 @@ const baretheme: Theme = createMuiTheme({
       " -apple-system",
       " BlinkMacSystemFont",
       " Roboto",
-      //   ' Helvetica Neue',
       " sans-serif",
-      //   ' HP Simplified Light',
-      //   ' Helvetica',
-      //   ' Arial' sans-serif;
     ].join(","),
     fontSize: 15,
     h4: {

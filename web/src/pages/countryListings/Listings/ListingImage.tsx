@@ -1,6 +1,9 @@
 import { IListing } from "./../../../types/Listing"
 //mui-core
-import { makeStyles, createStyles, Theme } from "@material-ui/core/styles"
+import { makeStyles, createStyles, Theme, useTheme } from "@material-ui/core/styles"
+import useMediaQuery from "@material-ui/core/useMediaQuery"
+//mui-lab
+import Skeleton from "@material-ui/lab/Skeleton"
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
    root: {
@@ -24,6 +27,9 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
       width: "100%",
       backgroundColor: "#c5c5c5"
    },
+   radius: {
+      borderRadius: "5%"
+   }
 }))
 
 interface ListingImageProps {
@@ -31,7 +37,7 @@ interface ListingImageProps {
 }
 
 
-export default function ListingImage(props: ListingImageProps) {
+export const ListingImage = (props: ListingImageProps): JSX.Element => {
    const classes = useStyles()
 
    return (
@@ -40,6 +46,24 @@ export default function ListingImage(props: ListingImageProps) {
             src={`${props.listing.images.picture_url}`}
             alt="country Flag"
             className={classes.imageListing}
+         />
+      </div>
+   )
+}
+
+
+export const ListingImageSkeleton = (): JSX.Element => {
+   const classes = useStyles()
+   const theme = useTheme()
+   const big = useMediaQuery(theme.breakpoints.up("sm"))
+
+   return (
+      <div>
+         <Skeleton
+            variant="rect"
+            width={big ? 300 : "100%"}
+            height={big ? 200 : "100%"}
+            className={classes.radius}
          />
       </div>
    )

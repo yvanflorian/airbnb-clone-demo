@@ -9,6 +9,8 @@ import IconButton from "@material-ui/core/IconButton"
 //mui-icons
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder'
 import StarIcon from '@material-ui/icons/Star'
+//mui-labs
+import Skeleton from "@material-ui/lab/Skeleton"
 
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
@@ -69,6 +71,12 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 
       }
    },
+   rootText: {
+      display: "flex",
+      flexDirection: "column",
+      paddingLeft: theme.spacing(2),
+      width: "100%"
+   },
 }))
 
 interface ListingDescriptionProps {
@@ -79,7 +87,7 @@ interface ListingDescriptionProps {
  * of each listing. It appears next to the listing 
  * picture
  */
-export default function ListingDescription(props: ListingDescriptionProps) {
+export const ListingDescription = (props: ListingDescriptionProps): JSX.Element => {
    const classes = useStyles()
    const theme = useTheme()
    const mobile: Boolean = useMediaQuery(theme.breakpoints.down("sm"))
@@ -167,4 +175,30 @@ export default function ListingDescription(props: ListingDescriptionProps) {
 
 
    return mobile ? smallscreen : bigscreen
+}
+
+/**
+ * Text Description Skeleton when loading the Page.
+ * Next to the Listing Picture Skeleton
+ * @returns Element
+ */
+export const ListingTextSkeleton = (): JSX.Element => {
+   const classes = useStyles()
+
+   return (
+      <div className={classes.rootText}>
+         <Skeleton variant="text" width="20%" />
+         <Typography variant="h4">
+            <Skeleton variant="text" width="80%" />
+         </Typography>
+         <div className={classes.divider} />
+         <Skeleton variant="text" width="50%" />
+         <Skeleton variant="text" width="40%" />
+         <Typography variant="h5">
+            <Skeleton variant="text" width="20%" />
+         </Typography>
+      </div>
+
+   )
+
 }

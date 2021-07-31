@@ -38,6 +38,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
    },
    logoText: {
       fontWeight: 700,
+      color: theme.palette.primary.main
    },
    rightItems: {
       padding: theme.spacing(2)
@@ -118,7 +119,6 @@ export default function Appbar(props: AppbarProps) {
                         <Typography
                            variant="h6"
                            noWrap
-                           color="primary"
                            className={classes.logoText}
                         >
                            airbnb
