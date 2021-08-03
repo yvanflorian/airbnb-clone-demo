@@ -2,6 +2,8 @@ import { useContext } from "react"
 import { CountryListingContext } from "../dataContext"
 import ListingContents from "./ListContents"
 import ListingMapArea from "./ListingMapArea"
+import { MyHelmet } from "./../../../components/MyHelmet"
+import { useRouterQuery } from "./../dataContext"
 //mui-core
 import useMediaQuery from "@material-ui/core/useMediaQuery"
 import Grid from "@material-ui/core/Grid"
@@ -33,6 +35,7 @@ export default function Listings() {
    const { fullMap, setFullMap } = useContext(CountryListingContext)
    const theme = useTheme()
    const mobile: Boolean = useMediaQuery(theme.breakpoints.down("md"))
+   let query = useRouterQuery()
 
 
    const makeFullMap = () => {
@@ -41,6 +44,7 @@ export default function Listings() {
 
    const fullLayout =
       <div>
+         <MyHelmet title={`${query.get("country")}.Stays.Remesha Airbnb Clone`} description={`${query.get("country")} Place`} />
          <div className={classes.offset} />
          <Grid
             container
@@ -75,6 +79,7 @@ export default function Listings() {
 
    const mapOnly =
       <div>
+         <MyHelmet title={`${query.get("country")}.Stays.Remesha Airbnb Demo`} description={`${query.get("country")} Place`} />
          <div className={classes.offset} />
          <Slide
             in={fullMap}

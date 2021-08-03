@@ -37,7 +37,7 @@ function App() {
           <ThemeProvider theme={theme}>
             <Switch>
               <Route exact path="/" component={Home} />
-              <Route path="/:countryCode" component={CountryListings} />
+              <Route path="/:place" component={CountryListings} />
             </Switch>
           </ThemeProvider>
         </ApolloProvider>

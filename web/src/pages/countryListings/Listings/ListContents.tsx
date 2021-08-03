@@ -41,6 +41,7 @@ export default function ListingContents() {
          skeletonRender.push(i)
       }
    }
+   let countryParam = query.get("country")
 
    const isError =
       <div>
@@ -60,7 +61,10 @@ export default function ListingContents() {
          >
             <Grid item xs={12} className={classes.gridItem}>
                <ListingFilters
-                  staysInPlace={query.has("mapselect") && Boolean(query.get("mapselect")) ? "selected map area" : data?.countryListings?.listing[0]?.address.country}
+                  staysInPlace={query.has("mapselect") && Boolean(query.get("mapselect"))
+                     ? "selected map area"
+                     : countryParam !== null ? countryParam : data?.countryListings?.listing[0]?.address.country
+                  }
                   countStays={data?.countryListings.stays || "0"}
                   roomTypes={data?.roomTypes}
                />
@@ -80,10 +84,10 @@ export default function ListingContents() {
                      pathname: `${oneListing.listing_url}`
                   }}
                      target="_blank"
+                     key={oneListing._id}
                   >
                      <Grid item xs={12}
                         className={classes.gridItem}
-                        key={oneListing._id}
                      >
                         <ListingImage
                            listing={oneListing}

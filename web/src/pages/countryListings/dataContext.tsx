@@ -13,7 +13,7 @@ import { IListing } from "./../../types/Listing"
 // }
 
 interface IURLParam {
-   countryCode: string
+   place: string
 }
 
 interface IQuery {
@@ -166,7 +166,7 @@ export const CountryListingProvider: React.FC<React.ReactNode> = ({ children }) 
    let query = useRouterQuery()
    const initFilters: ICountryListingFilters = {
       query: {
-         country: match.countryCode,
+         country: match.place,
       },
       limit: 20,
       skip: 0

@@ -171,7 +171,10 @@ export default function Contents() {
                      : data.availableCountries.map(
                         (oneCountry: ICountry, index: React.Key) => (
                            <Grid item lg={3} md={4} xs={12} key={index} className={classes.gridItem}>
-                              <Link to={`/${oneCountry.country_code}`} className={classes.linkAttribute}>
+                              <Link to={{
+                                 pathname: `/${oneCountry.country_code}`,
+                                 search: `country=${oneCountry.country}`
+                              }} className={classes.linkAttribute}>
                                  <Paper className={classes.cards} elevation={0}>
                                     <img
                                        src={`https://www.countryflags.io/${oneCountry.country_code}/flat/64.png`}
