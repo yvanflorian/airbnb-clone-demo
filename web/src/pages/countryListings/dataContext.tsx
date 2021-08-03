@@ -103,6 +103,8 @@ const COUNTRY_LISTINGS_Q = gql`
             address{
                country
                suburb
+               government_area
+               street
                location{
                   coordinates
                }

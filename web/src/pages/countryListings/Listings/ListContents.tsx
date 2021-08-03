@@ -24,6 +24,9 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
          borderBottom: "1px solid #DDDDDD !important"
       }
    },
+   gridContainer: {
+      flexWrap: "nowrap"
+   }
 }))
 
 export default function ListingContents() {
@@ -58,6 +61,9 @@ export default function ListingContents() {
             container
             direction="column"
             alignItems="stretch"
+            classes={{
+               container: classes.gridContainer
+            }}
          >
             <Grid item xs={12} className={classes.gridItem}>
                <ListingFilters

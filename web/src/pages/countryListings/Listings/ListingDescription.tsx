@@ -100,23 +100,23 @@ export const ListingDescription = (props: ListingDescriptionProps): JSX.Element 
                <IconButton color="primary" className={classes.reviewStar} size="small">
                   <StarIcon />
                </IconButton>
-               <Typography variant="subtitle2">{Math.round((Number(props.listing.review_scores.review_scores_rating) * 0.05) * 100) / 100} </Typography>
-               <Typography variant="caption">({props.listing.number_of_reviews})</Typography>
+               <Typography variant="subtitle2" className={classes.blackText}>{Math.round((Number(props.listing.review_scores.review_scores_rating) * 0.05) * 100) / 100} </Typography>
+               <Typography variant="caption" className={classes.blackText}>({props.listing.number_of_reviews})</Typography>
 
             </div>
             :
 
-            <Typography variant="subtitle1">No reviews yet </Typography>
+            <Typography variant="subtitle2" className={classes.blackText}>No reviews yet </Typography>
          }
          <Typography
             variant="body2"
             className={classes.textDescription}
          >
-            {`Entire ${props.listing.property_type} in ${props.listing.address.suburb}`}
+            {`Entire ${props.listing.property_type} in ${props.listing.address.government_area}`}
          </Typography>
          <Typography variant="body2">{props.listing.name}</Typography>
          <div className={classes.reviewAmountText}>
-            <Typography variant="subtitle2">{`$${props.listing.price} `}</Typography>
+            <Typography variant="subtitle2" className={classes.blackText}>{`$${props.listing.price} `}</Typography>
             <Typography variant="body2"> / night</Typography>
          </div>
       </div>
@@ -130,7 +130,7 @@ export const ListingDescription = (props: ListingDescriptionProps): JSX.Element 
                      variant="body2"
                      className={classes.textDescription}
                   >
-                     {`Entire ${props.listing.property_type} in ${props.listing.address.suburb}`}
+                     {`Entire ${props.listing.property_type} in ${props.listing.address.government_area}`}
                   </Typography>
                   <Typography
                      className={clsx(classes.blackText, classes.textDescription)}

@@ -1,4 +1,5 @@
 import AppBar from "./../../components/AppBar"
+import { Footer } from "./../../components/Footer"
 import { ListingBottomBar } from "./Listings/ListingBottomBar"
 import { ListingTopBar } from "./Listings/ListingTopBar"
 import Listings from "./Listings"
@@ -14,6 +15,7 @@ export default function CountryListings() {
          <ListingTopBar />
          <Listings />
          <ListingBottomBar />
+         <Footer />
       </CountryListingProvider>
    )
 }

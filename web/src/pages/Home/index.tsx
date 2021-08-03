@@ -1,6 +1,7 @@
 import AppBar from "./../../components/AppBar"
 import { MyHelmet } from "./../../components/MyHelmet"
 import HomeContents from "./Contents"
+import { Footer } from "./../../components/Footer"
 
 export default function Home() {
 
@@ -11,6 +12,7 @@ export default function Home() {
             barPosition={"fixed"}
          />
          <HomeContents />
+         <Footer />
       </div>
    )
 }

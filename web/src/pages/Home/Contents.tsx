@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme: Theme) =>
          height: "85vh",
       },
       imageContent: {
-         width: "102%",
+         width: "100%",
          height: "100%",
          backgroundSize: "cover",
          backgroundRepeat: "no-repeat",
