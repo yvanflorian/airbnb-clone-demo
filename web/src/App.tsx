@@ -9,7 +9,7 @@ import Home from "./pages/Home"
 import CountryListings from "./pages/countryListings"
 
 const myLink: ApolloLink = createHttpLink({
-  uri: "http://localhost:4000/graphql",
+  uri: process.env.REACT_APP_BACKEND_GRAPHQL_URI,
   // credentials: "include"
 })
 const myCache = new InMemoryCache()
