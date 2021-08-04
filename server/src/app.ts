@@ -12,6 +12,10 @@ if (loadEnv.error) {
 
 const app = express()
 
+app.get("/", (req, res) => {
+  res.send("Hello from Remesha Airbnb clone!")
+})
+
 const server = new ApolloServer({
   typeDefs: typeDefs,
   resolvers: resolvers,
@@ -19,7 +23,7 @@ const server = new ApolloServer({
 
 server.applyMiddleware({ app })
 
-const startServer = async (port: number) => {
+const startServer = async (port) => {
   try {
     await dbConnect()
     app.listen(port, () => {
@@ -32,4 +36,4 @@ const startServer = async (port: number) => {
   }
 }
 
-startServer(Number(process.env.PORT) || 8000)
+startServer(process.env.PORT || 8000)
