@@ -149,6 +149,7 @@ export default function Contents() {
          <Typography variant="h4">Loading</Typography>
       </div>
    )
+   console.log("Data is", data)
 
    const hasLoaded = (
       <div>
@@ -166,7 +167,7 @@ export default function Contents() {
             </Typography>
             <div className={(clsx(classes.cardsContainer, classes.exploreNearbylayout))}>
                <Grid container spacing={3} className={classes.grid}>
-                  {loading
+                  {loading && data !== undefined
                      ? isLoading
                      : data.availableCountries.map(
                         (oneCountry: ICountry, index: React.Key) => (
