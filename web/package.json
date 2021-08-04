@@ -2,6 +2,7 @@
   "name": "web",
   "version": "0.1.0",
   "private": true,
+  "proxy": "https://remesha-airbnb-clone.herokuapp.com",
   "dependencies": {
     "@apollo/client": "^3.3.21",
     "@material-ui/core": "^4.11.4",
