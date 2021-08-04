@@ -1,14 +1,14 @@
 import * as express from "express"
-import { config } from "dotenv"
+// import { config } from "dotenv"
 import { ApolloServer } from "apollo-server-express"
 //
 import { dbConnect } from "./config/db"
 import { typeDefs, resolvers } from "./models/graphql"
 
-const loadEnv = config()
-if (loadEnv.error) {
-  throw loadEnv.error
-}
+// const loadEnv = config()
+// if (loadEnv.error) {
+//   throw loadEnv.error
+// }
 
 const app = express()
 
