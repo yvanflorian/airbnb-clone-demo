@@ -1,19 +1,26 @@
 import { gql, useQuery } from "@apollo/client"
 import { Link } from "react-router-dom"
 import clsx from "clsx"
+import React from "react"
 //mui-core
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles"
 import Typography from "@material-ui/core/Typography"
 import Grid from "@material-ui/core/Grid"
 import Paper from "@material-ui/core/Paper"
-import React from "react"
-
+import LinearProgress from "@material-ui/core/LinearProgress"
+import Button from "@material-ui/core/Button"
 
 //https://a0.muscache.com/im/pictures/676c0a60-2a5a-4598-aeeb-10a81aa5232f.jpg?aki_policy=large
 
 const useStyles = makeStyles((theme: Theme) =>
    createStyles({
-      firstImage: {
+      countriesLoading: {
+         padding: theme.spacing(2),
+         marginBottom: theme.spacing(2),
+         width: '100%',
+         '& > * + *': {
+            marginTop: theme.spacing(2),
+         },
       },
       linkAttribute: {
          textDecoration: "none"
@@ -26,6 +33,7 @@ const useStyles = makeStyles((theme: Theme) =>
          width: "100%",
          height: "100%",
          backgroundSize: "cover",
+         backgroundColor: "linear-gradient(to bottom, #ffffff, #a2a2a2)",
          backgroundRepeat: "no-repeat",
          backgroundPositionX: "center",
          backgroundPositionY: "bottom",
@@ -47,12 +55,15 @@ const useStyles = makeStyles((theme: Theme) =>
          },
       },
       textOverImage: {
+         display: "flex",
+         flexDirection: "column",
+         alignItems: "center",
          position: "absolute",
          [theme.breakpoints.up("lg")]: {
             fontSize: theme.typography.h6.fontSize,
             fontWeight: 600,
             bottom: "53%",
-            left: "45%",
+            left: "46%",
          },
          [theme.breakpoints.down("lg")]: {
             fontSize: theme.typography.h6.fontSize,
@@ -143,23 +154,34 @@ const DISTINCT_COUNTRIES_Q = gql`
 export default function Contents() {
    const classes = useStyles()
    const { loading, error, data } = useQuery(DISTINCT_COUNTRIES_Q)
+   const scrollToBottom = () => {
+      window.scrollTo(0, document.body.scrollHeight);
+   }
 
    const isLoading = (
-      <div>
-         <Typography variant="h4">Loading</Typography>
+      <div className={classes.countriesLoading}>
+         <LinearProgress />
       </div>
    )
-   console.log("Data is", data)
 
    const hasLoaded = (
       <div>
-         <div className={classes.firstImage}>
+         <div>
             <div className={classes.imageContainer}>
                <div className={classes.imageContent} />
             </div>
-            <Typography className={classes.textOverImage} variant="h4">
-               Not sure where to go? Perfect.
-            </Typography>
+            <div className={classes.textOverImage} >
+               <Typography variant="h6">
+                  Not sure where to go? Perfect.
+               </Typography>
+               <Button
+                  variant="outlined"
+                  onClick={scrollToBottom}
+               >
+                  Explore now
+               </Button>
+
+            </div>
          </div>
          <div>
             <Typography className={clsx(classes.title, classes.exploreNearbylayout)} variant="h5">
@@ -195,7 +217,7 @@ export default function Contents() {
                </Grid>
             </div>
          </div>
-      </div>
+      </div >
    )
 
    const isError = (
@@ -204,7 +226,7 @@ export default function Contents() {
       </div>
    )
 
-   if (loading) return isLoading
+   // if (loading) return isLoading
    if (error) return isError
    else return hasLoaded
 }

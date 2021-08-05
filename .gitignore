@@ -107,3 +107,5 @@ dist
 mongoQuery.ts
 sampleMongoListing.json
 countries_locations.json
+# Local Netlify folder
+.netlify
