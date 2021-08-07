@@ -87,7 +87,7 @@ export default function ListingContents() {
                ))
                : data?.countryListings.listing.map((oneListing: IListing) => (
                   <MyLink to={{
-                     pathname: `${oneListing.listing_url}`
+                     pathname: `/rooms/${oneListing._id}`
                   }}
                      target="_blank"
                      key={oneListing._id}

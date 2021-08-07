@@ -7,6 +7,7 @@ import './App.css'
 import theme from "./theme"
 import Home from "./pages/Home"
 import CountryListings from "./pages/countryListings"
+import Room from "./pages/rooms"
 
 const myLink: ApolloLink = createHttpLink({
   uri: process.env.REACT_APP_BACKEND_GRAPHQL_URI,
@@ -37,7 +38,8 @@ function App() {
           <ThemeProvider theme={theme}>
             <Switch>
               <Route exact path="/" component={Home} />
-              <Route path="/:place" component={CountryListings} />
+              <Route exact path="/:place" component={CountryListings} />
+              <Route exact path="/rooms/:id" component={Room} />
               <Route path="/*" component={Home} />
             </Switch>
           </ThemeProvider>
