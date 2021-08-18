@@ -11,7 +11,7 @@ export default function Room() {
             title="Remesha Airbnb Room"
             description="Remesha Airbnb Room"
          />
-         <AppBar barPosition="fixed" />
+         <AppBar barPosition="absolute" />
          <RoomContents />
          <Footer />
       </RoomProvider>

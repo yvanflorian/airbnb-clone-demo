@@ -1,21 +1,24 @@
 import { useContext } from "react"
 import { RoomContext } from "./dataContext"
+import { RoomTitle } from "./Room_01_Title"
+import { RoomSubtitle } from "./Room_02_Subtitle"
+import { RoomPhotos } from "./Room_03_Photos"
 //mui-core
 import Typography from "@material-ui/core/Typography"
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles"
 import Container from '@material-ui/core/Container'
 
+
 const useStyles = makeStyles((theme: Theme) => createStyles({
    offset: theme.mixins.toolbar,
    cont: { backgroundColor: "#f7f7f7" },
-   title: {
-      padding: theme.spacing(2)
-   }
 }))
 
-export const RoomHeader = () => {
+
+export const RoomLayoutAndContents = () => {
    const classes = useStyles()
    const { loading, error, data } = useContext(RoomContext)
+   console.log(data)
 
    const isLoading =
       <div>
@@ -31,17 +34,20 @@ export const RoomHeader = () => {
       <div>
          <div className={classes.offset} />
          <Container maxWidth="lg" className={classes.cont}>
-            <div className={classes.title}>
-               {
-                  loading ?
-                     <Typography>Loading...</Typography>
-                     :
-                     <Typography variant="h5">
-                        {data?.oneListing.name || ""}
-                     </Typography>
-               }
-
-            </div>
+            <RoomTitle text={loading ? "Loading..." : data?.oneListing.name || ""} />
+            <RoomSubtitle
+               reviewScoreRating={data?.oneListing.review_scores.review_scores_rating || 0}
+               superhost={data?.oneListing.host.host_is_superhost || false}
+               addressMarket={data?.oneListing.address.market || ""}
+               addressCountry={data?.oneListing.address.country || ""}
+               reviewsCount={data?.oneListing.number_of_reviews || 0}
+               guestCount={data?.oneListing.guests_included || 0}
+               bedroomCount={data?.oneListing.bedrooms || 0}
+               bedCount={data?.oneListing.beds || 0}
+            />
+            <RoomPhotos
+               pictureUrl={data?.oneListing.images.picture_url || ""}
+            />
          </Container>
       </div>
 

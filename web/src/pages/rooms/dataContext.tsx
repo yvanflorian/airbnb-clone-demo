@@ -12,14 +12,28 @@ const ROOM_Q = gql`
          summary
          first_review
          last_review
+         number_of_reviews
          minimum_nights
          maximum_nights
          beds
+         guests_included
+         bedrooms
+         review_scores{
+           review_scores_rating
+           review_scores_value
+         }
          images{
             thumbnail_url
             medium_url
             picture_url
             xl_picture_url
+         }
+         address{
+            market
+            country
+         }
+         host{
+            host_is_superhost
          }
          notes
          address{
@@ -66,7 +80,7 @@ export const RoomContext = createContext(defaultValue)
 
 export const RoomProvider: React.FC<React.ReactNode> = ({ children }) => {
    const match = useParams<IURLParam>()
-   let query = useRouterQuery()
+   // let query = useRouterQuery()
    const { loading, error, data } = useQuery<IRoom>(ROOM_Q, {
       variables: { param: match.id }
    })

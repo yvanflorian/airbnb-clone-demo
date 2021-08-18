@@ -1,4 +1,4 @@
-import { RoomHeader } from "./RoomHeader"
+import { RoomLayoutAndContents } from "./RoomHeader"
 
 /**
  * Layout of the Room Page
@@ -7,7 +7,7 @@ import { RoomHeader } from "./RoomHeader"
 export const RoomContents = () => {
    return (
       <div>
-         <RoomHeader />
+         <RoomLayoutAndContents />
       </div>
    )
 }

@@ -22,17 +22,17 @@ export interface IListing {
   first_review: Date
   last_review: Date
   accomodates: Number
-  beds: Number
-  bedrooms: Number
-  number_of_reviews: Number
-  bathroms: Number
+  beds: number
+  bedrooms: number
+  number_of_reviews: number
+  bathroms: number
   amenities: [string]
   price: number
   weekly_price: Number
   monthly_price: Number
   cleaning_fee: Number
   extra_people: Number
-  guests_included: Number
+  guests_included: number
   images: {
     thumbnail_url: string
     medium_url: string
@@ -48,7 +48,7 @@ export interface IListing {
     host_thumbnail_url: string
     host_picture_url: string
     host_neighbourhood: string
-    host_is_superhost: Boolean
+    host_is_superhost: boolean
     host_has_profile_pic: Boolean
     host_identity_verified: Boolean
     host_listings_count: Number
@@ -81,6 +81,6 @@ export interface IListing {
     review_scores_communication: Number
     review_scores_location: Number
     review_scores_value: Number
-    review_scores_rating: Number
+    review_scores_rating: number
   }
 }
