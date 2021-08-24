@@ -34,6 +34,11 @@ const ROOM_Q = gql`
          }
          host{
             host_is_superhost
+            host_name
+            host_url
+            host_thumbnail_url
+            host_picture_url
+            host_has_profile_pic
          }
          notes
          address{

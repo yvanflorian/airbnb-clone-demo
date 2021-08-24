@@ -49,10 +49,10 @@ export interface IListing {
     host_picture_url: string
     host_neighbourhood: string
     host_is_superhost: boolean
-    host_has_profile_pic: Boolean
-    host_identity_verified: Boolean
-    host_listings_count: Number
-    host_total_listings_count: Number
+    host_has_profile_pic: boolean
+    host_identity_verified: boolean
+    host_listings_count: number
+    host_total_listings_count: number
     host_verifications: [string]
   }
   address: {
