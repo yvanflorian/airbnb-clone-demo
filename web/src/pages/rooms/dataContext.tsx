@@ -8,6 +8,7 @@ const ROOM_Q = gql`
       oneListing(id: $param){
          listing_url
          name
+         description
          space
          summary
          first_review

@@ -1,6 +1,6 @@
 
 //mui-core
-import { makeStyles, createStyles, Theme } from "@material-ui/core/styles"
+import { makeStyles, createStyles, Theme } from "@material-ui/core"
 import Typography from "@material-ui/core/Typography"
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
@@ -10,13 +10,20 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
    }
 }))
 
-export const RoomBenefits = (): JSX.Element => {
+interface RoomAboutProps {
+   hostname: string,
+   description: string
+}
+export const RoomAbout = (props: RoomAboutProps): JSX.Element => {
    const classes = useStyles()
 
    return (
       <div className={classes.root}>
          <Typography variant="h5">
-            Why you'll love it here
+            {`All about ${props.hostname}'s place`}
+         </Typography>
+         <Typography>
+            {props.description}
          </Typography>
       </div>
    )

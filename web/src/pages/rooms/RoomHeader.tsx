@@ -4,7 +4,7 @@ import { RoomTitle } from "./Room_01_Title"
 import { RoomSubtitle } from "./Room_02_Subtitle"
 import { RoomPhotos } from "./Room_03_Photos"
 import { RoomHost } from "./Room_04_Host"
-import { RoomBenefits } from "./Room_05_Benefits"
+import { RoomAbout } from "./Room_05_About"
 //mui-core
 import Typography from "@material-ui/core/Typography"
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles"
@@ -53,7 +53,9 @@ export const RoomLayoutAndContents = () => {
             <RoomHost
                host={data?.oneListing.host}
             />
-            <RoomBenefits
+            <RoomAbout
+               hostname={data?.oneListing.host.host_name || ""}
+               description={data?.oneListing.description || ""}
             />
          </Container>
       </div>
