@@ -19,6 +19,7 @@ const ROOM_Q = gql`
          beds
          guests_included
          bedrooms
+         amenities
          review_scores{
            review_scores_rating
            review_scores_value

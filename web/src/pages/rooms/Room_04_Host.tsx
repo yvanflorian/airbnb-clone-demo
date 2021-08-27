@@ -1,4 +1,5 @@
 import { IListing } from "./../../types/Listing"
+import { RoomDivideMarker } from "./../../components/RoomDivideMarker"
 //mui-core
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles"
 import Typography from "@material-ui/core/Typography"
@@ -25,11 +26,6 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
    hostDescr: {
       paddingLeft: theme.spacing(2)
    },
-   divider: {
-      marginTop: theme.spacing(2),
-      borderTop: "1px solid #DDDDDD !important",
-      width: "60%",
-   }
 }))
 
 interface RoomHostProps {
@@ -54,12 +50,12 @@ export const RoomHost = (props: RoomHostProps): JSX.Element => {
                <Typography variant="h5">
                   {` Meet the Host, ${props.host?.host_name}`}
                </Typography>
-               <Typography>
+               <Typography variant="body2">
                   Hosting since ...
                </Typography>
             </div>
          </div>
-         <div className={classes.divider} />
+         <RoomDivideMarker />
       </div>
    )
 }

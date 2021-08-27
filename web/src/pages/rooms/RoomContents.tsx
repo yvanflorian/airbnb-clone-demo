@@ -1,4 +1,4 @@
-import { RoomLayoutAndContents } from "./RoomHeader"
+import { RoomLayoutAndContents } from "./RoomLayoutAndContents"
 
 /**
  * Layout of the Room Page

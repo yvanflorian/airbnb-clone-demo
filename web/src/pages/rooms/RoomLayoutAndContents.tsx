@@ -5,15 +5,16 @@ import { RoomSubtitle } from "./Room_02_Subtitle"
 import { RoomPhotos } from "./Room_03_Photos"
 import { RoomHost } from "./Room_04_Host"
 import { RoomAbout } from "./Room_05_About"
+import { RoomAmenities } from "./Room_06_Amenities"
 //mui-core
 import Typography from "@material-ui/core/Typography"
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles"
 import Container from '@material-ui/core/Container'
-
+import Grid from "@material-ui/core/Grid"
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
    offset: theme.mixins.toolbar,
-   cont: { backgroundColor: "#f7f7f7" },
+   cont: { backgroundColor: "#fff" },
 }))
 
 
@@ -50,13 +51,20 @@ export const RoomLayoutAndContents = () => {
             <RoomPhotos
                pictureUrl={data?.oneListing.images.picture_url || ""}
             />
-            <RoomHost
-               host={data?.oneListing.host}
-            />
-            <RoomAbout
-               hostname={data?.oneListing.host.host_name || ""}
-               description={data?.oneListing.description || ""}
-            />
+            <Grid container>
+               <Grid item xs={8}>
+                  <RoomHost
+                     host={data?.oneListing.host}
+                  />
+                  <RoomAbout
+                     hostname={data?.oneListing.host.host_name || ""}
+                     description={data?.oneListing.description || ""}
+                  />
+                  <RoomAmenities
+                     amenities={data?.oneListing.amenities || [""]}
+                  />
+               </Grid>
+            </Grid>
          </Container>
       </div>
 
