@@ -12,6 +12,14 @@ import Button from "@material-ui/core/Button"
 
 //https://a0.muscache.com/im/pictures/676c0a60-2a5a-4598-aeeb-10a81aa5232f.jpg?aki_policy=large
 
+const COUNTRY_FLAGS = [
+   "https://a0.muscache.com/im/pictures/1cdb5298-1e10-4d5a-ac27-20c80b53b4af.jpg?im_w=320",
+   "https://a0.muscache.com/im/pictures/64530077-ffc7-481b-8cca-50ec8c5f3324.jpg?im_w=320",
+   "https://a0.muscache.com/im/pictures/aef20929-0d6a-40e7-8ac9-321ff0edf8c9.jpg?im_w=320",
+   "https://a0.muscache.com/im/pictures/a433b4d0-8183-4523-b4c5-99b81c5729c1.jpg?im_w=320"
+]
+
+
 const useStyles = makeStyles((theme: Theme) =>
    createStyles({
       countriesLoading: {
@@ -200,8 +208,10 @@ export default function Contents() {
                               }} className={classes.linkAttribute}>
                                  <Paper className={classes.cards} elevation={0}>
                                     <img
-                                       src={`https://www.countryflags.io/${oneCountry.country_code}/flat/64.png`}
+                                       // src={`https://www.countryflags.io/${oneCountry.country_code}/flat/64.png`}
+                                       src={COUNTRY_FLAGS[Math.floor(Math.random() * COUNTRY_FLAGS.length)]}
                                        alt="country Flag"
+                                       style={{ height: "100px" }}
                                     />
                                     <Typography
                                        className={classes.countryTypo}
