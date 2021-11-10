@@ -4,6 +4,7 @@ This is a (somewhat) **fullstack** clone of AirBnb based on public data provided
 
 - Some Buttons might not be functional yet
 - Some regions changed/customized to fit the data available, as it isn't enough to reproduce 100% clone of the airbnb site...
+- Single Page room not responsive yet
 - ètc...
 
 ## Demo
@@ -21,6 +22,13 @@ Visit this link to view the read-only demo site: https://remesha-airbnb-clone.ne
 - Material-UI: View version used [here](https://v4.mui.com/)
 - [React-Leaflet](https://react-leaflet.js.org/docs/start-introduction/) for maps
 
-### Soon
+### Soon / Future enhancements
 
-Server side will be rewritten, if time allows, to make some of the features available
+If time allows:
+
+- Server side will be rewritten, if time allows, to make some of the features available
+- Docker compose will be made available to build the development environment including loading of sample data
+- Completing the single room page to be fully responsive and match airbnb page
+- Activating disabled buttons
+- Improve performance of pages/queries
+- etc...
