@@ -1,17 +1,17 @@
-import { gql } from "apollo-server-express"
-import * as dayjs from "dayjs"
-import { GraphQLScalarType, Kind } from "graphql"
-import { merge } from "lodash"
+import {gql} from "apollo-server-lambda"
+import dayjs from "dayjs"
+import {GraphQLScalarType, Kind} from "graphql"
+import {merge} from "lodash"
 //
-import { ResolverMap } from "../../types/gqlResolver"
-import { fetchOneCountry } from "./Country"
+import {ResolverMap} from "../../types/gqlResolver"
+import {fetchOneCountry} from "./Country"
 import {
-  fetchCountryListing,
-  fetchDistinctAmenities,
-  fetchDistinctCountries,
-  fetchDistinctPropertyTypes,
-  fetchDistinctRoomTypes,
-  fetchOneListing,
+	fetchCountryListing,
+	fetchDistinctAmenities,
+	fetchDistinctCountries,
+	fetchDistinctPropertyTypes,
+	fetchDistinctRoomTypes,
+	fetchOneListing,
 } from "./Listing"
 
 export const typeDefs = gql`
@@ -191,35 +191,35 @@ export const typeDefs = gql`
 `
 
 const scalars = {
-  Date: new GraphQLScalarType({
-    name: "Date",
-    description: "Date custom scalar type",
-    serialize(value) {
-      return dayjs(value).format("DD-MM-YYYY HH:mm:ss")
-    },
-    parseValue(value) {
-      return dayjs(value)
-    },
-    parseLiteral(ast) {
-      if (ast.kind === Kind.STRING) {
-        return dayjs(ast.value)
-      }
-      return null
-    },
-  }),
+	Date: new GraphQLScalarType({
+		name: "Date",
+		description: "Date custom scalar type",
+		serialize(value) {
+			return dayjs(value).format("DD-MM-YYYY HH:mm:ss")
+		},
+		parseValue(value) {
+			return dayjs(value)
+		},
+		parseLiteral(ast) {
+			if (ast.kind === Kind.STRING) {
+				return dayjs(ast.value)
+			}
+			return null
+		},
+	}),
 }
 
 const someResolvers: ResolverMap = {
-  Query: {
-    hello: () => "hello World",
-    oneListing: (_, args) => fetchOneListing(args.id),
-    availableCountries: () => fetchDistinctCountries(),
-    countryListings: (_, args) => fetchCountryListing(args.q),
-    amenities: () => fetchDistinctAmenities(),
-    properties: () => fetchDistinctPropertyTypes(),
-    roomTypes: () => fetchDistinctRoomTypes(),
-    countryCentroid: (_, args) => fetchOneCountry(args.country),
-  },
+	Query: {
+		hello: () => "hello World",
+		oneListing: (_, args) => fetchOneListing(args.id),
+		availableCountries: () => fetchDistinctCountries(),
+		countryListings: (_, args) => fetchCountryListing(args.q),
+		amenities: () => fetchDistinctAmenities(),
+		properties: () => fetchDistinctPropertyTypes(),
+		roomTypes: () => fetchDistinctRoomTypes(),
+		countryCentroid: (_, args) => fetchOneCountry(args.country),
+	},
 }
 
 export const resolvers = merge(scalars, someResolvers)

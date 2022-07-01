@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "apollo-server-express": "^2.25.2",
+    "apollo-server-lambda": "^3.9.0",
     "dayjs": "^1.10.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
@@ -26,6 +27,9 @@
     "@types/lodash": "^4.14.172",
     "@types/mongoose": "^5.11.97",
     "@types/node": "^15.12.5",
+    "serverless-dotenv-plugin": "^4.0.1",
+    "serverless-offline": "^8.8.0",
+    "serverless-plugin-typescript": "^2.1.2",
     "ts-node-dev": "^1.1.7"
   },
   "engines": {
